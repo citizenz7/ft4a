@@ -2,6 +2,8 @@
 #### Xbtt tracker front-end in PHP + MySQL + PDO
 
 ### Prerequisites
+- PHP 7.+
+- MySQL server
 - Xbt Tracker installed and running (https://github.com/OlafvdSpek/xbt)
 
 ### Site settings

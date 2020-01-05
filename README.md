@@ -16,8 +16,7 @@
 ### Nginx settings
 You have to add a "rewrite" part to Nginx virtualhost file like this :
 
-``
-rewrite ^/c-(.*)$ /catpost.php?id=$1 last;
+``rewrite ^/c-(.*)$ /catpost.php?id=$1 last;
 
 rewrite ^/l-(.*)$ /licpost.php?id=$1 last;
 
@@ -39,8 +38,7 @@ if ($rule_2 = "21"){
 
    rewrite ^/(.*)$ /viewpost.php?id=$1 last;
    
-}
-``
+}``
 
 ### MySQL settings
 MySQL settings are in /web/includes/sql.php

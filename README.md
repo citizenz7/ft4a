@@ -7,7 +7,9 @@
 - Xbt Tracker installed and running (https://github.com/OlafvdSpek/xbt)
 
 ### Site settings
-General site settings in /web/includes/config.php
+- General site settings are in /web/includes/config.php
+- First member (with ID #1) is admin and can access to web/admin/ part of the site.
+- Admin part : Torrents list (+ edit and delete), Categories list (edit, delete, add), Licenses list (edit, delete, add), Members list (edit, delete, add), Message to all members, logs
 
 ### MySQL settings
 MySQL settings are in /web/includes/sql.php

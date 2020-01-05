@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin
+Disallow: /stats
+Disallow: /js
+Disallow: /classes
+Disallow: /includes
+Disallow: /bbclone

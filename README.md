@@ -10,7 +10,7 @@
 ### Site settings
 - General site settings are in /web/includes/config.php
 - First member (with ID #1) is admin and can access web/admin/ part of the site. See right menu for links.
-- Admin part : Torrents list (+ edit and delete), Categories list (edit, delete, add), Licenses list (edit, delete, add), Members list (edit, delete, add), Message to all members, logs
+- Admin part : Torrents list (edit, delete), Categories list (edit, delete, add), Licenses list (edit, delete, add), Members list (edit, delete, add), Message to all members, logs
 - you can add/edit News upper part and footer text in web/includes/config.php
 
 ### Nginx settings
@@ -40,7 +40,16 @@ You have to add a "rewrite" part to Nginx virtualhost file like this :
 
 ``}``
 
+You should configure a HTTPS access. Maybe with Lets'encrypt (french tuto: https://www.citizenz.info/let-s-encrypt-et-nginx-config-rapide-sous-ubuntu)
+
 ### MySQL settings
+You need a MySQL database. Import ft4a.sql file in phpMyAdmin or in command line.
+Please ad your settings in xbt_config table :
+- redirect_url
+- pid_file
+- torrent_pass_private_key
+- listen_port
+
 MySQL settings are in /web/includes/sql.php
 
 ### Crontab

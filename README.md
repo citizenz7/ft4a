@@ -50,7 +50,7 @@ You should configure a HTTPS access. Maybe with Lets'encrypt (french tuto: https
 
 ### MySQL settings
 You need a MySQL database. Import ft4a.sql file in phpMyAdmin or in command line.
-Please ad your settings in xbt_config table :
+Please add your settings in xbt_config table :
 - redirect_url
 - pid_file
 - torrent_pass_private_key

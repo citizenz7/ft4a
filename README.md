@@ -1,3 +1,10 @@
+```diff
+! text in red
++ text in green
+% text in orange
+| text in gray
+```
+
 # ft4a
 #### Xbtt tracker front-end in PHP + MySQL + PDO
 

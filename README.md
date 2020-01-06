@@ -62,3 +62,11 @@ You have to change Google Re-Captcha keys in :
 - web/signup.php
 - web/recup_pass.php
 
+You have to change mail login, pass and smtp server in web/includes/config.php:
+``define('SITEMAIL','contact@example.com');``
+
+``define('SITEMAILPASSWORD','xxxxxxxxxxxxxxxxxxxx');``
+
+``define('SMTPHOST','mail.example.com');``
+
+``define('SMTPPORT','587');``

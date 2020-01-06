@@ -8,6 +8,8 @@
 - Xbt Tracker installed and running (https://github.com/OlafvdSpek/xbt)
 
 ### Site settings
+#### WARNING: details and comments are in french in all files
+
 - General site settings are in /web/includes/config.php
 - First member (with ID #1) is admin and can access web/admin/ part of the site. See right menu for links.
 - Admin part : Torrents list (edit, delete), Categories list (edit, delete, add), Licenses list (edit, delete, add), Members list (edit, delete, add), Message to all members, logs

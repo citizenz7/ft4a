@@ -5,7 +5,11 @@
 - Nginx
 - PHP 7.+
 - MySQL server
-- Xbt Tracker installed and running (https://github.com/OlafvdSpek/xbt)
+- Xbt Tracker installed and running (https://github.com/citizenz7/xbt)
+
+### About XBTT tracker
+/!\ A major update has just been released a few days ago in official Github XBTT repo. Don't use the files from official repo or it will fail. Please use my repo with "old stable" version: https://github.com/citizenz7/xbt
+
 
 ### Site settings
 #### WARNINGs: 

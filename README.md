@@ -59,7 +59,7 @@ Please add your settings in xbt_config table :
 MySQL settings are in /web/includes/sql.php
 
 ### Crontab
-/private/crontab.php : delete all info older that 5 minutes in xbt_announce_log table. Usefull for peers.php stats
+/private/crontab.php : this will delete all info older that 5 minutes in xbt_announce_log table. Usefull for peers.php stats to show seeders/leechers names for a torrent... (WARNING: it seems a bit buggy though... sometimes)
 You have to set up a crontab like this : ``*/5 * * * * php /var/www/example.com/private/crontab.php``
 
 ### Mail settings

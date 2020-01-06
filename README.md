@@ -9,7 +9,7 @@
 
 ### Site settings
 - General site settings are in /web/includes/config.php
-- First member (with ID #1) is admin and can access to web/admin/ part of the site.
+- First member (with ID #1) is admin and can access web/admin/ part of the site.
 - Admin part : Torrents list (+ edit and delete), Categories list (edit, delete, add), Licenses list (edit, delete, add), Members list (edit, delete, add), Message to all members, logs
 - you can add/edit News upper part and footer text in web/includes/config.php
 

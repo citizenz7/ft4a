@@ -25,30 +25,20 @@
 
 ### Nginx settings
 You have to add a "rewrite" part to Nginx virtualhost file like this :
-
-``rewrite ^/c-(.*)$ /catpost.php?id=$1 last;``
-
-``rewrite ^/l-(.*)$ /licpost.php?id=$1 last;``
-
-``rewrite ^/a-(.*)-(.*)$ /archives.php?month=$1&year=$2 last;``
-
-``if (!-d $request_filename){``
-
-``   set $rule_2 1$rule_2;``
-
-``}``
-
-``if (!-f $request_filename){``
-
-``   set $rule_2 2$rule_2;``
-
-``}``
-
-``if ($rule_2 = "21"){``
-
-``   rewrite ^/(.*)$ /viewpost.php?id=$1 last;``
-
-``}``
+```
+rewrite ^/c-(.*)$ /catpost.php?id=$1 last;
+rewrite ^/l-(.*)$ /licpost.php?id=$1 last;
+rewrite ^/a-(.*)-(.*)$ /archives.php?month=$1&year=$2 last;
+if (!-d $request_filename){
+   set $rule_2 1$rule_2;
+}
+if (!-f $request_filename){
+   set $rule_2 2$rule_2;
+}
+if ($rule_2 = "21"){
+   rewrite ^/(.*)$ /viewpost.php?id=$1 last;
+}
+```
 
 You should configure a HTTPS access. Maybe with Lets'encrypt (french tuto: https://www.citizenz.info/let-s-encrypt-et-nginx-config-rapide-sous-ubuntu)
 
@@ -65,7 +55,7 @@ MySQL connection settings are in /web/includes/sql.php
 You need to change a few info in xbt_config table:
 ```
 redirect_url, http://www.example.com
-pid_file,	/var/run/xbt_tracker_example.pid
+pid_file, /var/run/xbt_tracker_example.pid
 torrent_pass_private_key, MyPrivateKeyWithLettersAndNumbers
 listen_port, xxxxx
 ```

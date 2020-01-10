@@ -66,12 +66,14 @@ You have to set up a crontab like this :
 */5 * * * * php /var/www/example.com/private/crontab.php
 ```
 
-### Mail settings
-You have to change Google Re-Captcha keys in :
+### Google Re-Captcha
+Get a Google Re-Captcha account.
+Then you have to change Google Re-Captcha keys in :
 - web/contact.php
 - web/signup.php
 - web/recup_pass.php
 
+### Mail settings
 You have to change mail login, pass and smtp server in web/includes/config.php:
 ```
 define('SITEMAIL','contact@example.com');
@@ -79,3 +81,7 @@ define('SITEMAILPASSWORD','xxxxxxxxxxxxxxxxxxxx');
 define('SMTPHOST','mail.example.com');
 define('SMTPPORT','587');
 ```
+Then you have to change mail info in :
+- web/contact.php
+- web/signup.php
+- web/recup_pass.php

@@ -60,8 +60,15 @@ Please add your settings in xbt_config table :
 - torrent_pass_private_key
 - listen_port
 
-MySQL settings are in /web/includes/sql.php
+MySQL connection settings are in /web/includes/sql.php
 
+You need to change a few info in xbt_config table:
+```
+redirect_url,	http://www.example.com
+pid_file,	/var/run/xbt_tracker_example.pid
+torrent_pass_private_key,	MyPrivateKeyWithLettersAndNumbers
+listen_port,	xxxxx
+```
 ### Crontab
 /private/crontab.php : this will delete all info older that 5 minutes in xbt_announce_log table. Usefull for peers.php stats to show seeders/leechers names for a torrent... (WARNING: it seems a bit buggy though... sometimes)
 You have to set up a crontab like this : ``*/5 * * * * php /var/www/example.com/private/crontab.php``

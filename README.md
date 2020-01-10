@@ -61,7 +61,10 @@ listen_port, xxxxx
 ```
 ### Crontab
 /private/crontab.php : this will delete all info older that 5 minutes in xbt_announce_log table. Usefull for peers.php stats to show seeders/leechers names for a torrent... (WARNING: it seems a bit buggy though... sometimes)
-You have to set up a crontab like this : ``*/5 * * * * php /var/www/example.com/private/crontab.php``
+You have to set up a crontab like this :
+```
+*/5 * * * * php /var/www/example.com/private/crontab.php
+```
 
 ### Mail settings
 You have to change Google Re-Captcha keys in :
@@ -70,10 +73,9 @@ You have to change Google Re-Captcha keys in :
 - web/recup_pass.php
 
 You have to change mail login, pass and smtp server in web/includes/config.php:
-``define('SITEMAIL','contact@example.com');``
-
-``define('SITEMAILPASSWORD','xxxxxxxxxxxxxxxxxxxx');``
-
-``define('SMTPHOST','mail.example.com');``
-
-``define('SMTPPORT','587');``
+```
+define('SITEMAIL','contact@example.com');
+define('SITEMAILPASSWORD','xxxxxxxxxxxxxxxxxxxx');
+define('SMTPHOST','mail.example.com');
+define('SMTPPORT','587');
+```

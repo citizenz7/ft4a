@@ -54,10 +54,10 @@ MySQL connection settings are in /web/includes/sql.php
 
 You need to change a few info in xbt_config table:
 ```
-redirect_url, http://www.example.com
-pid_file, /var/run/xbt_tracker_example.pid
-torrent_pass_private_key, MyPrivateKeyWithLettersAndNumbers
-listen_port, xxxxx
+redirect_url, http://www.example.com <--- your real website URL
+pid_file, /var/run/xbt_tracker_example.pid <--- give a name
+torrent_pass_private_key, MyPrivateKeyWithLettersAndNumbers <--- put a random key here (25 caracters at least)
+listen_port, xxxxx <--- put the tracker port (don't forget to configure firewall!)
 ```
 ### Crontab
 /private/crontab.php : this will delete all info older that 5 minutes in xbt_announce_log table. Usefull for peers.php stats to show seeders/leechers names for a torrent... (WARNING: it seems a bit buggy though... sometimes)

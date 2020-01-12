@@ -19,7 +19,7 @@ This is a front-end to XBT tracker:
 This code is running on https://www.ft4a.fr.
 
 ### About XBTT tracker
-/!\ A major update has just been released a few days ago (late december 2019) in official Github XBTT repo. **Don't use files from official repo** or this front-end will not work. Please use my repo with "old stable" version: https://github.com/citizenz7/xbt
+/!\ A major update has just been released a few days ago (late december 2019) in official Github XBT repo. **Don't use files from official repo** or this front-end will not work. Please use my repo with "old stable" version: https://github.com/citizenz7/xbt
 
 ### Site settings
 #### WARNINGs: 

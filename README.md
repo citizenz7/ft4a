@@ -16,6 +16,8 @@ This is a front-end to XBT tracker:
 - you may send internal messages to other member
 - you'll see other pages like torrents list with search, members list with search, torrents stats, blog (news from opensource world...), contact form, and admin part.
 
+This code is running on https://www.ft4a.fr.
+
 ### About XBTT tracker
 /!\ A major update has just been released a few days ago (late december 2019) in official Github XBTT repo. **Don't use files from official repo** or this front-end will not work. Please use my repo with "old stable" version: https://github.com/citizenz7/xbt
 

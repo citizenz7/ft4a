@@ -9,7 +9,7 @@
 
 ### What is it?
 This is a front-end to XBT tracker:
-- it's a blog. Each torrent is a post with small intro (description), main text (content), media links, post category, post licence, post images, internal messages system, etc.
+- it's a blog. Each torrent is a post with small intro (description), main text (content), media links, post category, post licence, post images, comments, leechers and seeders stats, views count, etc.
 - you may create an account, activate it (as you should receive an e-mail with activation link) then login.
 - you may ask to recover your password
 - as a member, you may propose new posts (torrents) from the right side main user Menu (Upload). You'll be able to edit, delete the post

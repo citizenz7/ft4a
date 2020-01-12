@@ -26,8 +26,8 @@ define('SITEOWNORNAME','xxxxxxxx xxxxxxxxxxxx');
 define('SITEAUTOR','xxxxxxxxxx');
 define('SITEOWNORADDRESS','xxxxxxxxxxxxxxxxxx');
 define('ANNOUNCEPORT','55555'); //Port pour l'announce
-define('SITEVERSION','2.1.5');
-define('SITEDATE','28/08/19');
+define('SITEVERSION','2.2.0');
+define('SITEDATE','120120');
 define('COPYDATE','2019');
 define('CHARSET','UTF-8');
 define('NBTORRENTS','15'); //Nb de torrents sur la page torrents.php

@@ -8,14 +8,16 @@
 - Xbt Tracker installed and running (https://github.com/citizenz7/xbt)
 
 ### What is it?
-This is a front-end to XBT tracker. It will show torrents info like a blog (text, images, etc.).
-Torrents are presented like blog posts with comments, stats, etc.
-You can create an account, activate it as you should receive an e-mail with activation link... then login.
-You'll see torrents list with search, members list with search, torrents stats, blog (news from opensource world...), contact form, etc.
+This is a front-end to XBT tracker:
+- this a blog. Each torrent is a post with small intro (description), main text (content), media links, post category, post licence, post images, internal messages system, etc.
+- you may create an account, activate it (as you should receive an e-mail with activation link) then login.
+- you may ask to recover your password
+- as a member, you may propose new posts (torrents) from the right side main user Menu (Upload). You'll be able to edit, delete the post
+- you may send internal messages to other member
+- you'll see other pages like torrents list with search, members list with search, torrents stats, blog (news from opensource world...), contact form, and admin part.
 
 ### About XBTT tracker
 /!\ A major update has just been released a few days ago (late december 2019) in official Github XBTT repo. **Don't use files from official repo** or this front-end will not work. Please use my repo with "old stable" version: https://github.com/citizenz7/xbt
-
 
 ### Site settings
 #### WARNINGs: 

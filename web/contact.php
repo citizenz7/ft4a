@@ -4,18 +4,7 @@ include_once 'includes/config.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-//require (WEBPATH.'classes/vendor/phpmailer/phpmailer/src/Exception.php');
-//require (WEBPATH.'classes/vendor/phpmailer/phpmailer/src/PHPMailer.php');
-//require (WEBPATH.'classes/vendor/phpmailer/phpmailer/src/SMTP.php');
 require (WEBPATH.'classes/vendor/autoload.php');
-
-
-//Si l'utilisateur est déjà loggé, on le renvoie sur l'index
-/*
-if($user->is_logged_in()) {
-	header('Location: ./');
-}
-*/
 
 $pagetitle = 'Nous contacter';
 
@@ -75,7 +64,7 @@ include_once 'includes/header-nav.php';
         	}
 
 		//reCaptcha
-		$secret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+		$secret = "6LfrmrUUAAAAAGcsi7lz-SSW0XnZj8DMex4gBF0P";
 		$response = $_POST['g-recaptcha-response'];
 		$remoteip = $_SERVER['REMOTE_ADDR'];
 		$api_url = "https://www.google.com/recaptcha/api/siteverify?secret=" 
@@ -105,7 +94,7 @@ include_once 'includes/header-nav.php';
 				$mail->addAddress(SITEMAIL);	// Un premier destinataire
 
 				//$mail->addAddress('ellen@example.com');	// Un second destifataire (facultatif)
-				// Possibilité de répliquer la ligne pour plus de destinataires
+										// Possibilité de répliquer la ligne pour plus de destinataires
 				$mail->addReplyTo($from);		// Pour ajouter l'adresse à laquelle répondre (en général celle de la personne ayant rempli le formulaire)
 				//$mail->addCC('cc@example.com');	// Pour ajouter un champ Cc
 				//$mail->addBCC('bcc@example.com');	// Pour ajouter un champ Cci
@@ -113,7 +102,7 @@ include_once 'includes/header-nav.php';
 				$mail->Subject = 'Message depuis '.SITENAMELONG.' : '.$subject;	 // Le sujet de l'email
 
 				$message = "Nom: ".$name."<br><br>".$message;
-                $message = "De: ".$from."<br>".$message;
+                                $message = "De: ".$from."<br>".$message;
 
 				$mail->Body = nl2br($message);	 // Le contenu du mail en HTML
 				//$mail->AltBody = 'Contenu du message pour les clients non HTML'; // Le contenu du mail au format texte
@@ -179,7 +168,7 @@ include_once 'includes/header-nav.php';
 
 <br>
 	<label for="verif_box">Anti-spam : <br>
-           <div class="g-recaptcha" data-sitekey="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"></div>
+           <div class="g-recaptcha" data-sitekey="6LfrmrUUAAAAAOU9sv-UO9A6joAVpLvrRB3sCbtt"></div>
         </label>
 
 </div>
@@ -201,6 +190,7 @@ include_once 'includes/header-nav.php';
 	<div class="divider2"></div>
 	
       </div>
+
 
 <?php
 include_once 'includes/sidebar.php';

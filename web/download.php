@@ -28,6 +28,12 @@ else {
         exit;
 }
 
+/*
+//on recherche le hash dans la base xbt_files
+$stmt1 = $db->prepare('SELECT * FROM xbt_files WHERE fid = :fid');
+$stmt1->execute(array(':fid' => $fid));
+$row1 = $stmt1->fetch();
+*/
 
 //on recherche le torrent dans la base blog_posts_seo
 $stmt2 = $db->prepare('SELECT * FROM blog_posts_seo WHERE postID = :postID');

@@ -107,8 +107,8 @@ include_once 'includes/header-nav.php';
 
 	echo '<div class="one_third first push50" style="margin-right:20px;">';
 	echo '<span class="bold font-large">Télécharger : <a href="download.php?id='.html($row['postID']).'"><span class="font-medium fa fa-download"></span></a></span><br>';
-	echo 'Posté le</span> : <span class="font-tiny">'.date_fr('d-m-Y à H:i:s', strtotime($row['postDate'])).'</span><br>';
-	echo 'Par : <span class="font-tiny"><a href="profil.php?membre='.html($row['postAuthor']).'">'.html($row['postAuthor']).'</a></span><br>';
+	echo 'Posté le : <span class="font-tiny">'.date_fr('d-m-Y à H:i:s', strtotime($row['postDate'])).'</span><br>';
+	echo 'Par : <span class="font-normal"><a href="profil.php?membre='.html($row['postAuthor']).'">'.html($row['postAuthor']).'</a></span><br>';
 	echo 'Dans : ';
 		$stmt2 = $db->prepare('SELECT catTitle, catSlug FROM blog_cats, blog_post_cats WHERE blog_cats.catID = blog_post_cats.catID AND blog_post_cats.postID = :postID ORDER BY catTitle ASC');
 		$stmt2->bindValue(':postID', $row['postID'], PDO::PARAM_INT);
@@ -129,10 +129,10 @@ include_once 'includes/header-nav.php';
 		}
 		*/
 
-	echo '<span class="font-tiny justify">'.$chaine.'</span>';
+	echo '<span class="font-normal justify">'.$chaine.'</span>';
 	echo '<br>';
-	echo 'Lien web du média : <span class="font-tiny"><a target="_blank" href="'.html($row['postLink']).'">URL</a></span><br>';
-	echo 'Taille : <span class="font-tiny">'.makesize($row['postTaille']).'</span><br>';
+	echo 'Lien web du média : <span class="font-normal"><a target="_blank" href="'.html($row['postLink']).'">URL</a></span><br>';
+	echo 'Taille : <span class="font-normal">'.makesize($row['postTaille']).'</span><br>';
 
 	$filetorrent = $REP_TORRENTS.html($row['postTorrent']);
 	$fd = fopen($filetorrent, "rb");
@@ -202,7 +202,7 @@ include_once 'includes/header-nav.php';
         $xbt = $stmt3->fetch();
 
 	echo 'Trafic : ';
-	echo '<span class="font-tiny">S : <a href="peers.php?hash='.html($row['postHash']).'">'.$xbt['seeders'].'</a> | '; 
+	echo '<span class="font-normal">S : <a href="peers.php?hash='.html($row['postHash']).'">'.$xbt['seeders'].'</a> | '; 
 	echo 'L : <a href="peers.php?hash='.html($row['postHash']).'">'.$xbt['leechers'].'</a> | ';
 
 	// on met à jour le nb de vues de l'article
@@ -214,7 +214,7 @@ include_once 'includes/header-nav.php';
         $views = $stmt333->fetch();
 
 	echo 'T : '.$xbt['completed'].'</span><br>';
-	echo 'Lu : <span class="font-tiny">'.$views['postViews'].' fois</span><br>';
+	echo 'Lu : <span class="font-normal">'.$views['postViews'].' fois</span><br>';
 	echo 'Licence(s) : ';	
 
 	$stmt3 = $db->prepare('SELECT licenceID,licenceTitle,licenceSlug FROM blog_licences, blog_post_licences WHERE blog_licences.licenceID = blog_post_licences.licenceID_BPL AND blog_post_licences.postID_BPL = :postID_BPL ORDER BY licenceTitle ASC');
@@ -242,12 +242,19 @@ include_once 'includes/header-nav.php';
 	}
 	*/
 
-	echo '<span class="font-tiny justify">'.$chaine.'</span>';
+	echo '<span class="font-normal justify">'.$chaine.'</span>';
+
+	// Réseaux sociaux      
+        echo '<p><div>';
+                echo 'Partager : ';
+                echo '<a href="https://www.facebook.com/sharer/sharer.php?u='.SITEURL.'/'.$row['postSlug'].'&display=popup&ref=plugin&src=like&kid_directed_site=0" target="_blanck" class="fab fa-facebook-square font-large2"></a>  ';
+                echo '<a href="https://twitter.com/intent/tweet?hashtags=ft4a%2CLibre&original_referer=https%3A%2F%2Fwww.ft4a.fr%2F'.$row['postSlug'].'&ref_src=twsrc%5Etfw&text=A télécharger sur f4a.fr : '.$row['postTitle'].'&tw_p=tweetbutton&url='.SITEURL.'%2F'.$row['postTitle'].'" class="fab fa-twitter-square font-large2" target="_blanck"></a> ';
+        echo '</div></p>';
 
 	if(isset($_SESSION['username']) && isset($_SESSION['userid'])) {
 		if(($row['postAuthor'] == $_SESSION['username']) || ($_SESSION['userid'] == 1)) {
 	?>
-		<br><br>
+		<br>
 		<span>
 		   <a href="admin/edit-post.php?id=<?php echo html($row['postID']); ?>"><input type="button" class="button small green" value="Edit."></a>
 		   <a href="javascript:deltorr('<?php echo html($row['postID']); ?>','<?php echo html($row['postTitle']); ?>')"><input type="button" class="button small red" value="Supp."></a>
@@ -257,16 +264,9 @@ include_once 'includes/header-nav.php';
 		}
 	}
 
-	// Réseaux sociaux	
-	echo '<p><div class="font-large">';
-		echo 'Partager :<br>';
-		echo '<a href="https://www.facebook.com/sharer/sharer.php?u='.SITEURL.'/'.$row['postSlug'].'&display=popup&ref=plugin&src=like&kid_directed_site=0" target="_blanck" class="fab fa-facebook-square"></a>  ';
-		echo '<a href="https://twitter.com/intent/tweet?hashtags=ft4a%2CLibre&original_referer=https%3A%2F%2Fwww.ft4a.fr%2F'.$row['postSlug'].'&ref_src=twsrc%5Etfw&text=A télécharger sur f4a.fr : '.$row['postTitle'].'&tw_p=tweetbutton&url='.SITEURL.'%2F'.$row['postTitle'].'" class="fab fa-twitter-square" target="_blanck"></a> ';
-	echo '</div></p>';
+	echo '<br></div>';
 
-	echo '</div>';
-
-	echo '<div class="justify">';
+	echo '<div class="three_fifth push50 justify">';
         	if (!empty($row['postImage']) && file_exists($REP_IMAGES_TORRENTS.$row['postImage'])) {
                 	echo '<img src="images/imgtorrents/'.html($row['postImage']).'" alt="'.html($row['postTitle']).'" class="imgr boxholder" style="max-width: 150px; max-height: 150px;">';
                 }

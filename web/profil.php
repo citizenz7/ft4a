@@ -74,8 +74,8 @@ include_once 'includes/header-nav.php';
         ?>
 
 	<table>
-        	<tr>
-                	<th>ID de membre : </th><td><?php echo html($row['memberID']); ?></td>
+		<tr>
+			<th>ID de membre : </th><td><?php echo html($row['memberID']); ?> <?php echo $admin; ?></td>
                         <?php
                         if(empty($row['avatar'])) {
                         ?>
@@ -90,7 +90,7 @@ include_once 'includes/header-nav.php';
                         <?php
                         if($row['memberID'] == 1) {
                         	//echo '<span style="font-weight: bold; color: green;"> [ Webmaster ]</span> | Jabber : mumbly_58 AT jabber.fr';
-                                echo '<span class="green font-tiny"> [ Webmaster ] </span><span class="font-tiny"> [ <a href="mailto:mumbly_58@jabber.fr">Jabber</a> ]</span>';
+                                echo '<span class="green font-tiny"> [ Admin ] </span><span class="font-tiny"> [ <a href="mailto:mumbly_58@jabber.fr">Jabber</a> ]</span>';
                                 }
                                 ?>
                         </td></tr>
@@ -302,8 +302,8 @@ include_once 'includes/header-nav.php';
                 <br><br>
 
                 <table>
-                        <tr>
-                                <th>ID de membre : </th><td><?php echo $row['memberID']; ?></td>
+			<tr>
+				<th>ID de membre : </th><td><?php echo $row['memberID']; ?> <?php echo $admin; ?></td>
 
                                 <?php
                                 if(empty($row['avatar'])) {

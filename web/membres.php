@@ -104,7 +104,11 @@ include_once 'includes/header-nav.php';
                         while($row = $stmt->fetch()) {
 				echo '<tr>';
 				if (!empty($row['avatar'])) {
-					echo '<td><img src="/images/avatars/'.html($row['avatar']).'" style="width:40px; height:40px;" alt="'.html($row['username']).'" class="left boxholder">&nbsp;<a href="/profil.php?membre='.html($row['username']).'">'.html($row['username']).'</a></td>';
+					if ($row['memberID'] == 1) {
+						$admin = '<span style="color:red; font-style:italic; font-size:10px;">(Admin)</span>';
+					}
+					else { }
+					echo '<td><img src="/images/avatars/'.html($row['avatar']).'" style="width:40px; height:40px;" alt="'.html($row['username']).'" class="left boxholder">&nbsp;<a href="/profil.php?membre='.html($row['username']).'">'.html($row['username']).'</a>'.$admin.'</td>';
 				}
 				else {
 					echo '<td><img src="/images/avatars/avatar.png" style="width:40px; height:40px;" alt="'.html($row['username']).'" class="left boxholder">&nbsp;<a href="/profil.php?membre='.html($row['username']).'">'.html($row['username']).'</a></td>';

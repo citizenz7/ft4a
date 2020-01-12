@@ -21,9 +21,10 @@ include_once 'includes/header-nav.php';
 	<section class="calltoaction opt1 clear">
 		<p class="font-medium bold">Bienvenue sur <?php echo SITENAME; ?> !</p><br>
 		<p class="font-small justify" style="margin-left:20px;">
-			<span class="font-medium bold">Les News :</span>
-			xxxxxxxxxxxxxx<br>
-			xxxxxxxxxxxxxx<br>
+			<span class="font-medium bold">Les News :</span><br>
+			<i class="far fa-newspaper"></i> [22/08/19] - bigbird a rédigé un <a href="https://lcdgg.thomascyrix.com/2019/08/22/ft4a-xyz-un-nouveau-site-de-torrent-legal/">article</a> sur son blog à propos de ft4a. Merci à lui<br>
+			<i class="fab fa-github"></i> [20/08/19] - Le code du site est sur <a href="https://github.com/citizenz7/ft4a">Github</a><br>
+		<br>
 		</p>
 	</section>
 

@@ -72,9 +72,10 @@ include_once 'includes/header-nav.php';
                         $error[] = 'Les mots de passe ne concordent pas.';
                 }
 
-                if($email ==''){
-                        $error[] = 'Veuillez entrer une adresse e-mail.';
-                }
+		$email = filter_var($email, FILTER_SANITIZE_EMAIL);
+		if(($email =='') || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			$error[] = 'Veuillez entrer une adresse e-mail valide';
+		}
 
 		// On cherche si l'adresse e-mail est déjà dans la base
 		if (isset($email) && !empty($email)) {
@@ -126,7 +127,7 @@ include_once 'includes/header-nav.php';
                 }
 
 		// reCaptcha
-		$secret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+		$secret = "6LfrmrUUAAAAAGcsi7lz-SSW0XnZj8DMex4gBF0P";
 		$response = $_POST['g-recaptcha-response'];
 		$remoteip = $_SERVER['REMOTE_ADDR'];
 		$api_url = "https://www.google.com/recaptcha/api/siteverify?secret="
@@ -194,14 +195,14 @@ include_once 'includes/header-nav.php';
 					$mail->isHTML(true);                    // Format de l'email en HTML
 
 					$mail->From = SITEMAIL; 		// L'adresse mail de l'emetteur du mail (en général identique à l'adresse utilisée pour l'authentification SMTP)
-                    $mail->FromName = SITENAMELONG;		// Le nom de l'emetteur qui s'affichera dans le mail
-                    $mail->addAddress($to);    		// Destinataire
+                                	$mail->FromName = SITENAMELONG;		// Le nom de l'emetteur qui s'affichera dans le mail
+                                	$mail->addAddress($to);    		// Destinataire
 
 					$mail->addReplyTo(SITEMAIL);    	// Pour ajouter l'adresse à laquelle répondre (en général celle de la personne ayant rempli le formulaire)
 
 					$mail->Subject = $subject;  		// Le sujet de l'email
-                    $mail->Body    = $body;       		// Le contenu du mail en HTML
-                    //$mail->AltBody = 'Contenu du message pour les clients non HTML'; // Le contenu du mail au format texte
+                                	$mail->Body    = $body;       		// Le contenu du mail en HTML
+                                	//$mail->AltBody = 'Contenu du message pour les clients non HTML'; // Le contenu du mail au format texte
 
 					if(!$mail->send()) {
                                         	echo '<div class="alert-msg rnd8 error">';
@@ -258,7 +259,7 @@ include_once 'includes/header-nav.php';
 			</label>
 			<br>
 			<label for="captcha">Anti-spam : 
-   				<div class="g-recaptcha" data-sitekey="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"></div>
+   				<div class="g-recaptcha" data-sitekey="6LfrmrUUAAAAAOU9sv-UO9A6joAVpLvrRB3sCbtt"></div>
 			</label>
 		   </div>
                    <br><p>

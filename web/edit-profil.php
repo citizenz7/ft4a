@@ -154,8 +154,9 @@ include_once 'includes/header-nav.php';
 		}
 
 		// On vérifie l'adresse e-mail
-                if($email =='') {
-                        $error[] = 'Veuillez entrer une adresse e-mail.';
+		$email = filter_var($email, FILTER_SANITIZE_EMAIL);
+		if(($email =='') || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        $error[] = 'Veuillez entrer une adresse e-mail valide';
                 }
 
                 if(!isset($error)) {

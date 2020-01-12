@@ -76,6 +76,7 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 .divider3{border-top-style:dashed;}
 .divider4{display:block; width:100%; height:10px; margin:20px 0; padding:0; border-top:1px #D6D6D6; clear:both;}
 .divider5{display:block; width:100%; height:10px; margin:12px 0; padding:0; clear:both;}
+.divider6{display:block; width:100%; height:10px; margin:10px 0; padding:0; border-top:1px #D6D6D6; border-top-style:solid; clear:both;}
 
 /* Buttons */
 
@@ -359,3 +360,41 @@ table tbody tr:nth-child(odd) {color:#979797; background-color:#F0F0F0;}
 .rnd8, .list.tagcloud.rnd8 a, form.rnd8 input, form.rnd8 textarea{-moz-border-radius:8px; -webkit-border-radius:8px; border-radius:8px;}
 .rnd10, .list.tagcloud.rnd10 a, form.rnd10 input, form.rnd10 textarea{-moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px;}
 .rnd12, .list.tagcloud.rnd12 a, form.rnd12 input, form.rnd12 textarea{-moz-border-radius:12px; -webkit-border-radius:12px; border-radius:12px;}
+
+/* mail notification */
+.notification {
+  /*background-color: #555;*/
+  /*color: white;*/
+  text-decoration: none;
+  padding: 0px 0px;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+}
+
+.notification:hover {
+  /*background: red;*/
+  /*box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);*/
+}
+
+.notification .badge1 {
+  position: absolute;
+  top: -3px;
+  right: -23px;
+  padding: 0px 6px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+  font-size: 11px;
+}
+
+.notification .badge2 {
+  position: absolute;
+  top: -3px;
+  right: -23px;
+  padding: 0px 6px;
+  border-radius: 50%;
+  background: green;
+  color: white;
+  font-size: 11px;
+}

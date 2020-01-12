@@ -135,8 +135,8 @@ include_once 'includes/header-nav.php';
 					$stmt3->execute(array(':postHash' => $row['postHash']));
 					$xbt = $stmt3->fetch();
 
-					echo '<td class="center"><a class="green" href="peers.php?hash='.html($row['postHash']).'">'.$xbt['seeders'].'</a></td>';
-					echo '<td class="center"><a class="red" href="peers.php?hash='.html($row['postHash']).'">'.$xbt['leechers'].'</a></td>';
+					echo '<td class="center"><span style="color:green;">'.$xbt['seeders'].'</span></td>';
+					echo '<td class="center"><span style="color:red;">'.$xbt['leechers'].'</span></td>';
 					echo '<td class="center">'.$xbt['completed'].'</td>';
 
 				echo '</tr>';

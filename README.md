@@ -29,6 +29,10 @@ You have to add a "rewrite" part to Nginx virtualhost file like this :
 rewrite ^/c-(.*)$ /catpost.php?id=$1 last;
 rewrite ^/l-(.*)$ /licpost.php?id=$1 last;
 rewrite ^/a-(.*)-(.*)$ /archives.php?month=$1&year=$2 last;
+
+### new from vers. 2.2: infos & blog
+rewrite ^/i-(.*)$ /infos.php?id=$1 last;
+
 if (!-d $request_filename){
    set $rule_2 1$rule_2;
 }

@@ -18,6 +18,18 @@
 
          <h2 class="nospace font-medium push20">Menu</h2>
 
+	<!--
+         <div class="imgr boxholder"><img src="images/demo/50x50.gif" alt=""></div>
+	 <div class="push20">Bienvenue mumbly !</div>
+         <ul class="list none indent push50">
+           <li><span class="fa fa-envelope"></span> <a href="#">Messagerie : 2</a> <span class="fa fa-envelope-o"></span></li>
+           <li><span class="fa fa-upload"></span> <a href="#">Ajouter un torrent</a></li>
+           <li><span class="fa fa-user-circle-o"></span> <a href="#">Profil</a></li>
+           <li><span class="fa fa-bar-chart-o"></span> <a href="#">Stats</a></li>
+           <li><span class="fa fa-gears"></span> <a href="#">Admin</a></li>
+         </ul>
+	-->
+
 	<?php
         if($user->is_logged_in() && $_SESSION['userid'] == 1) {
 		$query=$db->query('SELECT avatar FROM blog_members WHERE memberID = 1');
@@ -50,12 +62,24 @@
 		<ul class="list none">	
 			<li>
             		<?php
-				echo '<i class="fas fa-envelope"></i> <a href="/messagerie.php?membre='.html($_SESSION['username']).'">Messagerie : ';
-				if($nbmessages >= 1 ) {
-					echo '<i class="fas fa-mail-bulk"></i> ';
-				}
-				echo '<span>['.$nbmessages.'&nbsp;-&nbsp;'.$nbstmtnbmess.']</span>';
-				echo '</a>';
+			echo '<i class="fas fa-mail-bulk"></i><a href="/messagerie.php?membre='.html($_SESSION['username']).'">';
+				//if($nbmessages >= 1 ) {
+				//	echo '<i class="fas fa-mail-bulk"></i> ';
+				//}
+				//echo '<span>['.$nbmessages.'&nbsp;-&nbsp;'.$nbstmtnbmess.']</span>';
+
+				echo '
+				<span class="notification">
+					<span>Messagerie</span>';
+					if ($nbmessages >= 1) {
+						echo '<span class="badge1">'.$nbmessages.'</span>';
+					}
+					else {
+					echo '
+					<span class="badge2">'.$nbmessages.'</span>';
+					}
+				echo '</span>
+				</a>';
 			?>
 			</li>
             		<li><i class="fas fa-plus"></i> <a href="/upload.php">Ajouter un torrent</a></li>
@@ -96,13 +120,23 @@
 
 				<li>
 				<?php
-				echo '<i class="fas fa-envelope"></i> <a href="/messagerie.php?membre='.$session_username.'">
-				Messagerie : ';
-				if($nbmessages >= 1 ) {
-					echo ' <i class="fas fa-mail-bulk"></i> ';
-				}
-				echo '[<span class="bold">'.$nbmessages.'</span>&nbsp;-&nbsp;'.$nbstmtnbmess.']';
-				echo '</a>';
+				//echo '<i class="fas fa-envelope"></i> <a href="/messagerie.php?membre='.$session_username.'">Messagerie : ';
+				echo '<i class="fas fa-envelope"></i><a href="/messagerie.php?membre='.html($_SESSION['username']).'">';
+					//if($nbmessages >= 1 ) {
+					//	echo ' <i class="fas fa-mail-bulk"></i> ';
+					//}
+
+				echo '
+                                <span class="notification">
+					<span>Messagerie</span>';
+					if ($nbmessages >= 1) {
+                                                echo '<span class="badge1">'.$nbmessages.'</span>';
+                                        }
+                                        else {
+                                        echo '<span class="badge2">'.$nbmessages.'</span>';
+					}
+				echo '</span>
+				</a>';
 				?>
 				</li>
 
@@ -156,6 +190,30 @@
           <h2 class="nospace font-medium push20">Statistiques du site</h2>
 	     <h4 class="font-small">Membres et visiteurs</h4>
 	        <ul style="margin-top:-18px;" class="list underline indent">
+		<!--
+                   <li>Membres inscrits : 1325</li>
+                   <li>Membres à valider : 4</li>
+                   <li>Personnes connectées : 123</li>
+			<ul>
+			   <li><span class="fa fa-users"></span> 112 visiteurs</li>
+			   <li><span class="fa fa-user"></span> 11 membres</li>
+			</ul>
+		   <li>Visites aujourd'hui : 4523</li>
+		   <li>Visites totales : 8523214</li>
+        	</ul>
+		
+		<h4 class="font-small" style="margin-top:20px;">Tracker bittorrent (XBTT)</h4>
+		   <ul style="margin-top:-18px;" class="list">
+		      <li>Torrents téléchargés : 2635</li>
+		      <li>Clients : 297</li>
+		      <li>Leechs : 2 (1%)</li>
+		      <li>Seeds : 296 (99%)</li>
+		      <li>Torrents actifs : 99</li>
+		      <li>Torrents total : 99</li>
+		      <li>Download total : 2.48 To</li>
+		      <li>Upload total : 2.51 To</li>
+		      <li>Trafic total : 5.99 To</li>
+		-->
 
 		<?php
 		// NOMBRE DE MEMBRES INSCRITS

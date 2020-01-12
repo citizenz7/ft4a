@@ -59,12 +59,12 @@ include_once '../includes/header-nav.php';
         </tr></thead>
         <?php
                 try {
-			$pages = new Paginator('10','p');
+			$pages = new Paginator('7','p');
                         $stmt = $db->query('SELECT infoID FROM blog_infos');
 			//pass number of records to
 			$pages->set_total($stmt->rowCount());
 
-			$stmt = $db->query('SELECT infoID, infoTitle, infoSlug FROM blog_infos ORDER BY infoID DESC '.$pages->get_limit());
+			$stmt = $db->query('SELECT infoID, infoTitle, infoSlug FROM blog_infos ORDER BY infoDate DESC '.$pages->get_limit());
 
                         while($row = $stmt->fetch()){
 
@@ -91,7 +91,7 @@ include_once '../includes/header-nav.php';
 	<p class="right"><a href="/admin/add-info.php"><input type="button" class="button small orange" value="Ajouter une info" /></a></p>
 
 	<?php
-		echo $pages->page_links('/admin/info.php?');
+		echo $pages->page_links('/admin/infos.php?');
 	?>
 
 

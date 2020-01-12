@@ -22,25 +22,23 @@ This code is running on https://www.ft4a.fr.
 /!\ A major update has just been released a few days ago (late december 2019) in official Github XBT repo. **Don't use files from official repo** or this front-end will not work. Please use my repo with "old stable" version: https://github.com/citizenz7/xbt
 
 ### Site settings
-#### WARNINGs: 
-- details and comments are in french in all files
-- you MUST adapt some important files described below and put your own settings (site name, site URL = http + https, paths, announce port, mail, etc.)
-
 #### CONFIG:
 - General site settings are in /web/includes/config.php
+- details and comments are in french in mots files
+- you MUST change some important infos in config.php and put your own settings (site name, site URL = http + https, paths, announce port, mail, etc.)
 - You should not change anything below $ANNOUNCEURL part in config.php. Default settings should be fine.
-- First member (with ID #1) is admin and can access web/admin/ part of the site. See right menu for links.
+- First member (with ID #1) is admin and can access admin part of the site. See right menu for links.
 - Admin part : Torrents list (edit, delete), Categories list (edit, delete, add), Licenses list (edit, delete, add), Members list (edit, delete, add), Infos (edit, delete, add), Message to all members, logs
 - Vers. 2.2+ add a Blog page with News and you can now add/edit News from Admin section.
 
 ### Nginx settings
-You need a "rewrite" part to Nginx virtualhost file like this :
+You need a "rewrite" part in Nginx virtualhost file like this :
 ```
 rewrite ^/c-(.*)$ /catpost.php?id=$1 last;
 rewrite ^/l-(.*)$ /licpost.php?id=$1 last;
 rewrite ^/a-(.*)-(.*)$ /archives.php?month=$1&year=$2 last;
 
-### new from vers. 2.2: infos & blog
+### vers. 2.2+: infos & blog
 rewrite ^/i-(.*)$ /infos.php?id=$1 last;
 
 if (!-d $request_filename){

@@ -8,23 +8,23 @@
 - Xbt Tracker installed and running (https://github.com/citizenz7/xbt)
 
 ### About XBTT tracker
-/!\ A major update has just been released a few days ago in official Github XBTT repo. Don't use the files from official repo or it will fail. Please use my repo with "old stable" version: https://github.com/citizenz7/xbt
+/!\ A major update has just been released a few days ago (late december 2019) in official Github XBTT repo. **Don't use files from official repo** or this front-end will not work. Please use my repo with "old stable" version: https://github.com/citizenz7/xbt
 
 
 ### Site settings
 #### WARNINGs: 
 - details and comments are in french in all files
 - you MUST adapt some important files described below and put your own settings (site name, site URL = http + https, paths, announce port, mail, etc.)
-- You should not change anything from $ANNOUNCEURL part unless Editorial ($EDITO). Default settings should be fine.
 
 #### CONFIG:
 - General site settings are in /web/includes/config.php
+- You should not change anything below $ANNOUNCEURL part in config.php. Default settings should be fine.
 - First member (with ID #1) is admin and can access web/admin/ part of the site. See right menu for links.
 - Admin part : Torrents list (edit, delete), Categories list (edit, delete, add), Licenses list (edit, delete, add), Members list (edit, delete, add), Infos (edit, delete, add), Message to all members, logs
-- you can now (vers. 2.2) add/edit News from Admin section. Vers. 2.2 add a Blog page with News.
+- Vers. 2.2+ add a Blog page with News and you can now add/edit News from Admin section.
 
 ### Nginx settings
-You have to add a "rewrite" part to Nginx virtualhost file like this :
+You need a "rewrite" part to Nginx virtualhost file like this :
 ```
 rewrite ^/c-(.*)$ /catpost.php?id=$1 last;
 rewrite ^/l-(.*)$ /licpost.php?id=$1 last;
@@ -63,13 +63,6 @@ pid_file, /var/run/xbt_tracker_example.pid <--- give a name
 torrent_pass_private_key, MyPrivateKeyWithLettersAndNumbers <--- put a random key here (25 caracters at least)
 listen_port, xxxxx <--- put the tracker port (don't forget to configure firewall!)
 ```
-### Crontab
-/private/crontab.php : this will delete all info older that 5 minutes in xbt_announce_log table. Usefull for peers.php stats to show seeders/leechers names for a torrent... (WARNING: it seems a bit buggy though... sometimes)
-You have to set up a crontab like this :
-```
-*/5 * * * * php /var/www/example.com/private/crontab.php
-```
-
 ### Google Re-Captcha
 Get a Google Re-Captcha account.
 Then you have to change Google Re-Captcha keys in :

@@ -18,6 +18,7 @@ include_once 'includes/header-nav.php';
 
 	<div class="first">
 
+	<!--
 	<section class="calltoaction opt1 clear">
 		<p class="font-medium bold">Bienvenue sur <?php echo SITENAME; ?> !</p><br>
 		<p class="font-small justify" style="margin-left:20px;">
@@ -27,6 +28,10 @@ include_once 'includes/header-nav.php';
 		<br>
 		</p>
 	</section>
+	-->
+
+	<p class="font-large2" style="margin-top:-1px;"><i class="fas fa-info-circle"></i> Retrouvez toutes les infos sur le nouveau <a href="https://www.ft4a.fr/blog.php">blog</a></p>
+	<div class="divider6"></div>	
 
 	<!-- ### ARTICLES ###-->
 	<?php

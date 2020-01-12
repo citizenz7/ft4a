@@ -12,9 +12,9 @@
     <div id="header-contact">
       <ul class="list none">
 	    <?php if($pagetitle == 'Bienvenue sur '.SITENAMELONG.' !') {echo '<li class="active">';} else {echo '<li>';} ?><span class="fa fa-home"></span> <a href="./">Accueil</a></li>
+	    <?php if($pagetitle == 'Blog : les dernières infos du monde Libre') {echo '<li class="active">';} else {echo '<li>';} ?><span class="far fa-newspaper"></span> <a href="/blog.php">Blog</a></li>
 	    <?php if($pagetitle == 'Nous contacter') {echo '<li class="active">';} else {echo '<li>';} ?><i class="fas fa-envelope"></i> <a href="/contact.php">Nous contacter</a></li>
             <?php if($pagetitle == 'A propos') {echo '<li class="active">';} else {echo '<li>';} ?><span class="fa fa-info"></span> <a href="/apropos.php">A propos</a></li>
-	    <!--<?php if($pagetitle == 'Aidez-nous') {echo '<li class="active">';} else {echo '<li>';} ?><span class="fa fa-handshake-o"></span>&nbsp;<a href="aideznous.php">Aidez-nous</a></li>-->
 
 	   <li><span class="fa fa-lock"></span>&nbsp;<a href="<?php echo SITEURLHTTPS; ?>">Version HTTPS</a></li>
       </ul>

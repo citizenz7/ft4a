@@ -33,7 +33,7 @@ if(isset($_POST["recuperationpass"]) && $_POST['recuperationpass']) {
 	}
 
 	//reCaptcha
-	$secret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+	$secret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 	$response = $_POST['g-recaptcha-response'];
 	$remoteip = $_SERVER['REMOTE_ADDR'];
 	$api_url = "https://www.google.com/recaptcha/api/siteverify?secret="
@@ -167,7 +167,7 @@ include_once 'includes/header-nav.php';
 	        </label>
 		<br>
 		<label for="verif_box">Anti-spam : <br>
-			<div class="g-recaptcha" data-sitekey="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"></div>
+			<div class="g-recaptcha" data-sitekey="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"></div>
 		</label>
      	      </div>
 	      <br><br><br><br><br><br><br><br><br>

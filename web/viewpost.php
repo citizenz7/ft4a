@@ -202,8 +202,8 @@ include_once 'includes/header-nav.php';
         $xbt = $stmt3->fetch();
 
 	echo 'Trafic : ';
-	echo '<span class="font-normal">S : <a href="peers.php?hash='.html($row['postHash']).'">'.$xbt['seeders'].'</a> | '; 
-	echo 'L : <a href="peers.php?hash='.html($row['postHash']).'">'.$xbt['leechers'].'</a> | ';
+	echo '<span class="font-normal">S : '.$xbt['seeders'].' | '; 
+	echo 'L : '.$xbt['leechers'].' | ';
 
 	// on met à jour le nb de vues de l'article
 	$stmt33 = $db->query('UPDATE blog_posts_seo SET postViews = postViews+1 WHERE postID = '.$row['postID']);

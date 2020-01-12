@@ -20,8 +20,8 @@
 #### CONFIG:
 - General site settings are in /web/includes/config.php
 - First member (with ID #1) is admin and can access web/admin/ part of the site. See right menu for links.
-- Admin part : Torrents list (edit, delete), Categories list (edit, delete, add), Licenses list (edit, delete, add), Members list (edit, delete, add), Message to all members, logs
-- you can add/edit News upper part and footer text in web/includes/config.php
+- Admin part : Torrents list (edit, delete), Categories list (edit, delete, add), Licenses list (edit, delete, add), Members list (edit, delete, add), Infos (edit, delete, add), Message to all members, logs
+- you can now (vers. 2.2) add/edit News from Admin section. Vers. 2.2 add a Blog page with News.
 
 ### Nginx settings
 You have to add a "rewrite" part to Nginx virtualhost file like this :

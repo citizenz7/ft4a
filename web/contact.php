@@ -64,7 +64,7 @@ include_once 'includes/header-nav.php';
         	}
 
 		//reCaptcha
-		$secret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+		$secret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 		$response = $_POST['g-recaptcha-response'];
 		$remoteip = $_SERVER['REMOTE_ADDR'];
 		$api_url = "https://www.google.com/recaptcha/api/siteverify?secret=" 
@@ -168,7 +168,7 @@ include_once 'includes/header-nav.php';
 
 <br>
 	<label for="verif_box">Anti-spam : <br>
-           <div class="g-recaptcha" data-sitekey="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"></div>
+           <div class="g-recaptcha" data-sitekey="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"></div>
         </label>
 
 </div>

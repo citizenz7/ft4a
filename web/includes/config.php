@@ -26,7 +26,7 @@ define('SITEOWNORNAME','xxxxxxxx xxxxxxxxxxxx');
 define('SITEAUTOR','xxxxxxxxxx');
 define('SITEOWNORADDRESS','xxxxxxxxxxxxxxxxxx');
 define('ANNOUNCEPORT','55555'); //Port pour l'announce
-define('SITEVERSION','2.2.1');
+define('SITEVERSION','2.2.3');
 define('SITEDATE','120120');
 define('COPYDATE','2019');
 define('CHARSET','UTF-8');

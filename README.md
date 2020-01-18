@@ -71,6 +71,14 @@ pid_file, /var/run/xbt_tracker_example.pid <--- give a name
 torrent_pass_private_key, MyPrivateKeyWithLettersAndNumbers <--- put a random key here (25 caracters at least)
 listen_port, xxxxx <--- put the tracker port (don't forget to configure firewall!)
 ```
+
+### Crontab
+To delete non validated user accounts older than 7 days, create the following crontab:
+```
+@daily php /var/www/ft4a.fr/private/users-prune.php
+```
+You can change to whatever you want: 15 days, 2 months, ... Look at the /private/users-prune.php file.
+
 ### Google Re-Captcha
 Get a Google Re-Captcha account.
 Then you have to change Google Re-Captcha keys in :

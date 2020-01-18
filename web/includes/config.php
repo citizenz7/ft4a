@@ -9,12 +9,12 @@ include_once 'sql.php';
 //Paramètres du site
 define('SITENAME','example');
 define('SITENAMELONG','example.com');
-define('WEBPATH','/var/www/'.SITENAMELONG.'/web/'); //Chemin complet pour les fichiers du site
+define('WEBPATH','/var/www/example.com/web/'); //Chemin complet pour les fichiers du site
 define('SITESLOGAN','xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
 define('SITEDESCRIPTION','xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-define('SITEKEYWORDS','bittorrent,torrent,'.SITENAME.'partage,échange,peer,p2p,licence,license,medias,libre,free,opensource,gnu,téléchargement,download,upload,xbt,tracker,php,mysql,linux,bsd,os,système,system,exploitation,debian,arch,fedora,ubuntu,manjaro,mint,film,movie,picture,video,mp3,musique,music,mkv,avi,mpeg,gpl,creativecommons,cc,mit,apache,cecill,artlibre');
-define('SITEURL','http://www.'.SITENAMELONG);
-define('SITEURLHTTPS','https://www.'.SITENAMELONG);
+define('SITEKEYWORDS','bittorrent,torrent,partage,échange,peer,p2p,licence,license,medias,libre,free,opensource,gnu,téléchargement,download,upload,xbt,tracker,php,mysql,linux,bsd,os,système,system,exploitation,debian,arch,fedora,ubuntu,manjaro,mint,film,movie,picture,video,mp3,musique,music,mkv,avi,mpeg,gpl,creativecommons,cc,mit,apache,cecill,artlibre');
+define('SITEURL','http://www.example.com');
+define('SITEURLHTTPS','https://www.example.com');
 
 //MAIL
 define('SITEMAIL','contact@example.com');
@@ -119,6 +119,7 @@ function __autoload($class) {
     
 }
 
+//Initialisation du user
 $user = new User($db); 
 
 //On inclut le fichier de fonctions et les fichiers d'encodage et de décodage des torrents 

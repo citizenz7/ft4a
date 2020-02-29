@@ -355,13 +355,6 @@ include_once 'includes/header.php';
 								<label for="Validation DefaultCommentaire">Commentaire</label>
 			   					<textarea class="form-control" name="commentaire" id="commentaire" rows="4" required></textarea>
 							</div>
-							<!--
-							<div class="form-group">
-								<label for="verif_box">Anti-spam :</label>
-								<br>
-           							<div class="g-recaptcha" data-sitekey="6LfrmrUUAAAAAOU9sv-UO9A6joAVpLvrRB3sCbtt"></div>
-							</div>
-							-->
 							<button class="btn btn-primary btn-sm" type="submit" name="submitcomm">Envoyer le commentaire</button>
                    					<button class="btn btn-secondary btn-sm" type="reset">Annuler</button>
 						</form>
@@ -381,20 +374,6 @@ include_once 'includes/header.php';
 					if($commentaire =='') {
                 				$error[] = 'Veuillez au moins entrer un ou deux mots pour ce commentaire... sinon, ce n\'est plus un commentaire ! :D.';
                 			}
-
-					//reCaptcha
-					/*
-					$secret = "6LfrmrUUAAAAAGcsi7lz-SSW0XnZj8DMex4gBF0P";
-					$response = $_POST['g-recaptcha-response'];
-					$remoteip = $_SERVER['REMOTE_ADDR'];
-					$api_url = "https://www.google.com/recaptcha/api/siteverify?secret="
-					. $secret
-					. "&response=" . $response
-					. "&remoteip=" . $remoteip ;
-					$decode = json_decode(file_get_contents($api_url), true);
-
-					if ($decode['success'] == true) {
-					*/
 
 						if(!isset($error)) {
 							try {
@@ -493,38 +472,6 @@ include_once 'includes/header.php';
 				}
 				?>
 				</div>
-
-<!-- EXEMPLE -->
-<!--
-<div class="container">
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="inbox-message">
-				<ul>
-					<li>
-						<a href="#">
-							<div class="message-avatar">
-								<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-							</div>
-							<div class="message-body">
-								<div class="message-body-heading">
-									<h5>Daniel Dock</h5><span><small><i class="fas fa-calendar-alt"></i> 30-01-2020 à 15:24:45</small></span>
-								</div>
-								<p>Hello, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolor....</p>
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</div>
--->
-
-
-
-
-
 
 			</div> <!-- //col-sm-9 -->
 

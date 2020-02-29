@@ -1,425 +1,342 @@
-      <!-- ######################################## sidebar.php ######################################## -->
-      <div class="one_third">
+			<div class="col-sm-3">
 
-      <!-- ######## RECHERCHE ########-->
-      <h2 class="nospace font-medium push20">Recherche</h2>
-      	<div id="search" class="fl_left">
-      		<form class="clear" method="post" action="../recherche.php">
-        		<fieldset>
-          			<legend>Recherche :</legend>
-          			<input type="search" name="requete" style="width:280px;" placeholder="Rechercher un torrent&hellip;">
-          			<button class="fa fa-search medium" type="submit" title="Recherche"></button>
-        		</fieldset>
-      		</form>
-	</div>
-	  
-      <!-- ######## MENU ########-->
-      <div class="clear push40"></div>
+				<?php
+				//Si c'est l'admin (memberID = 1) qui se ocnnecte
+        			if($user->is_logged_in() && $_SESSION['userid'] == 1) {
+					$query=$db->query('SELECT avatar FROM blog_members WHERE memberID = 1');
+					$data = $query->fetch();
+					$avatar = html($data['avatar']);
+					?>
 
-         <h2 class="nospace font-medium push20">Menu</h2>
+					<ul class="list-group small">
 
-	<!--
-         <div class="imgr boxholder"><img src="images/demo/50x50.gif" alt=""></div>
-	 <div class="push20">Bienvenue mumbly !</div>
-         <ul class="list none indent push50">
-           <li><span class="fa fa-envelope"></span> <a href="#">Messagerie : 2</a> <span class="fa fa-envelope-o"></span></li>
-           <li><span class="fa fa-upload"></span> <a href="#">Ajouter un torrent</a></li>
-           <li><span class="fa fa-user-circle-o"></span> <a href="#">Profil</a></li>
-           <li><span class="fa fa-bar-chart-o"></span> <a href="#">Stats</a></li>
-           <li><span class="fa fa-gears"></span> <a href="#">Admin</a></li>
-         </ul>
-	-->
-
-	<?php
-        if($user->is_logged_in() && $_SESSION['userid'] == 1) {
-		$query=$db->query('SELECT avatar FROM blog_members WHERE memberID = 1');
-		$data = $query->fetch();
-		$avatar = html($data['avatar']);
-		
-		if(empty($data['avatar'])) {
-		?>
-			<img src="/images/avatars/avatar-profil.png" alt="Pas d'avatar pour <?php echo html($_SESSION['username']); ?>" class="imgr boxholder" style="width-max:100px;">
-		<?php 
-		}
-		else {
-		?>	
-			<img src="/images/avatars/<?php echo $avatar; ?>" alt="<?php echo html($_SESSION['username']); ?>" class="imgr boxholder">
-		<?php
-		}
-		?>
-
-                <span class="bold">Bienvenue <?php echo html($_SESSION['username']); ?> !</span>
-		<br />
-	
-		<?php
-		$stmtmess = $db->query('SELECT blog_messages.messages_titre, blog_messages.messages_date, blog_members.username as expediteur, blog_messages.messages_id as id_message FROM blog_messages, blog_members WHERE blog_messages.messages_id_destinataire = "'.$_SESSION['userid'].'" AND blog_messages.messages_id_expediteur = blog_members.memberID AND blog_messages.messages_lu = "0"');
-		$nbmessages = $stmtmess->rowCount();
-
-		$stmtnbmess = $db->query('SELECT blog_messages.messages_id, blog_members.memberID FROM blog_messages, blog_members WHERE blog_messages.messages_id_destinataire = "'.$_SESSION['userid'].'" AND blog_messages.messages_id_expediteur = blog_members.memberID');
-		$nbstmtnbmess = $stmtnbmess->rowCount();
-		?>
-
-		<ul class="list none">	
-			<li>
-            		<?php
-			echo '<i class="fas fa-mail-bulk"></i><a href="/messagerie.php?membre='.html($_SESSION['username']).'">';
-				//if($nbmessages >= 1 ) {
-				//	echo '<i class="fas fa-mail-bulk"></i> ';
-				//}
-				//echo '<span>['.$nbmessages.'&nbsp;-&nbsp;'.$nbstmtnbmess.']</span>';
-
-				echo '
-				<span class="notification">
-					<span>Messagerie</span>';
-					if ($nbmessages >= 1) {
-						echo '<span class="badge1">'.$nbmessages.'</span>';
+					<?php	
+					if(empty($data['avatar'])) {
+					?>
+						<li class="list-group-item text-center"><img src="/images/avatars/avatar-profil.png" alt="Pas d'avatar pour <?php echo html($_SESSION['username']); ?>" class="rounded-circle" style="max-width:90px;"><br>
+					<?php 
 					}
 					else {
-					echo '
-					<span class="badge2">'.$nbmessages.'</span>';
+					?>	
+						<li class="list-group-item text-center"><img src="/images/avatars/<?php echo $avatar; ?>" alt="<?php echo html($_SESSION['username']); ?>" class="rounded-circle" style="max-width:90px;"><br>
+					<?php
 					}
-				echo '</span>
-				</a>';
-			?>
-			</li>
-            		<li><i class="fas fa-plus"></i> <a href="/upload.php">Ajouter un torrent</a></li>
-            		<li><i class="fas fa-user"></i> <a href="profil.php?membre=<?php echo html($_SESSION['username']); ?>">Profil</a></li>
-            		<li><i class="fas fa-users-cog"></i> <a href="/admin">Admin</a></li>
-			<li><i class="fas fa-sign-out-alt"></i> <a href="/logout.php">Déconnexion</a></li>
-        	</ul>
-                <?php }
+					?>
+					
+        				Bienvenue <?php echo html($_SESSION['username']); ?> !</li>
+	
+					<?php
+					$stmtmess = $db->query('SELECT blog_messages.messages_titre, blog_messages.messages_date, blog_members.username as expediteur, blog_messages.messages_id as id_message FROM blog_messages, blog_members WHERE blog_messages.messages_id_destinataire = "'.$_SESSION['userid'].'" AND blog_messages.messages_id_expediteur = blog_members.memberID AND blog_messages.messages_lu = "0"');
+					$nbmessages = $stmtmess->rowCount();
 
-                elseif($user->is_logged_in()) {
+					$stmtnbmess = $db->query('SELECT blog_messages.messages_id, blog_members.memberID FROM blog_messages, blog_members WHERE blog_messages.messages_id_destinataire = "'.$_SESSION['userid'].'" AND blog_messages.messages_id_expediteur = blog_members.memberID');
+					$nbstmtnbmess = $stmtnbmess->rowCount();
+					?>
 
-			$session_username = html($_SESSION['username']);
-			$query=$db->prepare('SELECT avatar FROM blog_members WHERE username = :session_username');
-			$query->bindValue(':session_username',$session_username,PDO::PARAM_STR);
-			$query->execute();
-			$data = $query->fetch();
+						<li class="list-group-item"><i class="fas fa-mail-bulk"></i> <a href="/messagerie.php?membre=<?php echo html($_SESSION['username']); ?>">Messagerie</a> 
+						<?php
+						if ($nbmessages >= 1) {
+							echo '<span class="badge badge-pill badge-danger">'.$nbmessages.'</span>';
+						}
+						else {
+							echo '<span class="badge badge-pill badge-success">'.$nbmessages.'</span>';
+						}
+						?>
+					</li>
+					<li class="list-group-item"><i class="fas fa-upload"></i> <a href="upload.php">Ajouter un torrent</a></li>
+					<li class="list-group-item"><i class="fas fa-user"></i> <a href="profil.php?membre=<?php echo html($_SESSION['username']); ?>">Profil</a></li>
+					<li class="list-group-item"><i class="fas fa-user-cog"></i> <a href="/admin">Admin</a></li>
+					<li class="list-group-item"><i class="fas fa-sign-out-alt"></i> <a href="logout.php">Déconnexion</a></li>
+					</ul>
+					<br>
+				<?php }
 
-			if(empty($data['avatar'])) {
-				$avatar = 'avatar-profil.png';
-			}
-			else {
-				$avatar = html($data['avatar']);
-			}
+				//Si c'est un membre qui se connecte
+				elseif($user->is_logged_in()) {
+					$session_username = html($_SESSION['username']);
+					$query=$db->prepare('SELECT avatar FROM blog_members WHERE username = :session_username');
+					$query->bindValue(':session_username',$session_username,PDO::PARAM_STR);
+					$query->execute();
+					$data = $query->fetch();
+					$avatar = html($data['avatar']);
+					?>
 
-                ?>
-			<ul class="list none indent">
-				<span class="bold">Bienvenue <?php echo $session_username; ?> !</span>
-				<img src="/images/avatars/<?php echo $avatar; ?>" alt="<?php echo $session_username; ?>" style="width:80px; height:80px;" class="imgr boxholder">
-				<br />
+					<ul class="list-group small">
 
-				<?php
-				$stmtmess = $db->query('SELECT blog_messages.messages_titre, blog_messages.messages_date, blog_members.username as expediteur, blog_messages.messages_id as id_message FROM blog_messages, blog_members WHERE blog_messages.messages_id_destinataire = "'.$_SESSION['userid'].'" AND blog_messages.messages_id_expediteur = blog_members.memberID AND blog_messages.messages_lu = "0"');
-				$nbmessages = $stmtmess->rowCount();
-			
-				$stmtnbmess = $db->query('SELECT blog_messages.messages_id, blog_members.memberID FROM blog_messages, blog_members WHERE blog_messages.messages_id_destinataire = "'.$_SESSION['userid'].'" AND blog_messages.messages_id_expediteur = blog_members.memberID');	
-				$nbstmtnbmess = $stmtnbmess->rowCount();
-				?>
-
-				<li>
-				<?php
-				//echo '<i class="fas fa-envelope"></i> <a href="/messagerie.php?membre='.$session_username.'">Messagerie : ';
-				echo '<i class="fas fa-envelope"></i><a href="/messagerie.php?membre='.html($_SESSION['username']).'">';
-					//if($nbmessages >= 1 ) {
-					//	echo ' <i class="fas fa-mail-bulk"></i> ';
-					//}
-
-				echo '
-                                <span class="notification">
-					<span>Messagerie</span>';
-					if ($nbmessages >= 1) {
-                                                echo '<span class="badge1">'.$nbmessages.'</span>';
+					<?php
+					if(empty($data['avatar'])) {
+                                        ?>
+						<li class="list-group-item text-center"><img src="/images/avatars/avatar-profil.png" alt="Pas d'avatar pour <?php echo html($_SESSION['username']); ?>" class="rounded-circle" style="max-width:80px;"><br>
+                                        <?php
                                         }
                                         else {
-                                        echo '<span class="badge2">'.$nbmessages.'</span>';
+                                        ?>
+                                                <li class="list-group-item text-center"><img src="/images/avatars/<?php echo $avatar; ?>" alt="<?php echo html($_SESSION['username']); ?>" class="rounded-circle" style="max-width:80px;"><br>
+                                        <?php
+                                        }
+                                        ?>
+					Bienvenue <?php echo html($_SESSION['username']); ?> !
+					<br />
+					<?php
+                                        $stmtmess = $db->query('SELECT blog_messages.messages_titre, blog_messages.messages_date, blog_members.username as expediteur, blog_messages.messages_id as id_message FROM blog_messages, blog_members WHERE blog_messages.messages_id_destinataire = "'.$_SESSION['userid'].'" AND blog_messages.messages_id_expediteur = blog_members.memberID AND blog_messages.messages_lu = "0"');
+                                        $nbmessages = $stmtmess->rowCount();
+
+                                        $stmtnbmess = $db->query('SELECT blog_messages.messages_id, blog_members.memberID FROM blog_messages, blog_members WHERE blog_messages.messages_id_destinataire = "'.$_SESSION['userid'].'" AND blog_messages.messages_id_expediteur = blog_members.memberID');
+                                        $nbstmtnbmess = $stmtnbmess->rowCount();
+                                        ?>
+
+						<li class="list-group-item"><i class="fas fa-mail-bulk"></i> <a href="/messagerie.php?membre=<?php echo html($_SESSION['username']); ?>">Messagerie</a>
+                                               	<?php
+                                               	if ($nbmessages >= 1) {
+                                                       	echo '<span class="badge badge-pill badge-danger">'.$nbmessages.'</span>';
+                                               	}
+                                               	else {
+                                                       	echo '<span class="badge badge-pill badge-success">'.$nbmessages.'</span>';
+                                               	}
+                                               	?>
+                                       	</li>
+                                       	<li class="list-group-item"><i class="fas fa-upload"></i> <a href="upload.php">Ajouter un torrent</a></li>
+                                       	<li class="list-group-item"><i class="fas fa-user"></i> <a href="profil.php?membre=<?php echo html($_SESSION['username']); ?>">Profil</a></li>
+                                       	<li class="list-group-item"><i class="fas fa-sign-out-alt"></i> <a href="logout.php">Déconnexion</a></li>
+                                	</ul>
+                                	<br>
+                                <?php }
+				
+				elseif(!$user->is_logged_in()) {
+				//Si c'est un visiteur (pas connecté)...
+                		?>
+
+				<h6>Menu</h6>
+                                <ul class="list-group small">
+                                        <li class="list-group-item"><i class="fas fa-sign-in-alt"></i> <a href="login.php">Connexion</a></li>
+                                        <li class="list-group-item"><i class="fas fa-user-plus"></i> <a href="signup.php">Créer un compte</a></li>
+                                </ul>
+                                <br>
+				<?php } ?>
+
+				<h6>3 derniers commentaires</h6>
+				<ul class="list-group small">
+					<?php
+					// 3 derniers commentaires
+					$stmt = $db->query('SELECT blog_posts_seo.postID,blog_posts_seo.postTitle,blog_posts_seo.postSlug,blog_posts_comments.cid,blog_posts_comments.cid_torrent,blog_posts_comments.cadded,blog_posts_comments.ctext,blog_posts_comments.cuser FROM blog_posts_seo,blog_posts_comments WHERE blog_posts_seo.postID = blog_posts_comments.cid_torrent ORDER BY cadded DESC LIMIT 3');
+					while($row = $stmt->fetch()){
+						$max = 60;
+						$chaine = $row['ctext'];
+						if (strlen($chaine) >= $max) {
+							$chaine = substr($chaine, 0, $max);
+							$espace = strrpos($chaine, " ");
+							$chaine = substr($chaine, 0, $espace).' ...';
+						}
+						echo '<li class="list-group-item"><i class="far fa-comment"></i> '.$row['cuser'].' a dit dans <a href="/'.$row['postSlug'].'#commentaires">'.html($chaine).'</a></li>';
 					}
-				echo '</span>
-				</a>';
-				?>
-				</li>
+					?>
+				</ul>
+				<br>
 
-				<li><i class="fas fa-plus"></i> <a href="/upload.php">Ajouter un torrent</a></li>
-				<li><i class="fas fa-user"></i> <a href="/profil.php?membre=<?php echo $session_username; ?>"> Profil</a></li>
-				<li><i class="fas fa-sign-out-alt"></i> <a href="/logout.php">Déconnexion</a></li>
-			</ul>
+				<h6>Liens web</h6>
+				<ul class="list-group small">
+					<li class="list-group-item">
+						<i class="fas fa-link"></i> <a href="https://www.olivierprieur.fr" target="_blank">CV d'Olivier Prieur (aka citizenz)</a><br>
+						<i class="fas fa-link"></i> <a href="https://www.citizenz.info" target="_blank">Blog de citizenZ</a><br>
+						<i class="fas fa-link"></i> <a href="https://www.clevery.xyz" target="_blank">Plateforme clevery.xyz</a>
+					</li>
+				</ul>
+				<br>
 
-                <?php }
+				<h6>Stats du site</h6>
+				<ul class="list-group">
+					<li class="list-group-item">
+						<?php
+						// NOMBRE DE MEMBRES INSCRITS
+						$stmt3 = $db->query('SELECT COUNT(memberID) AS membres FROM blog_members WHERE active = "yes"');
+						$row3 = $stmt3->fetch();
+						echo '<span class="small">Membres inscrits :</span> <span class="badge badge-success float-right">'.html($row3['membres']).'</span><br>';
 
-                elseif(!$user->is_logged_in()) {
-                ?>
+						// NOMBRE DE MEMBRES NON VALIDES
+						$stmt4 = $db->query('SELECT COUNT(memberID) AS membres FROM blog_members WHERE memberID !=32 AND active != "yes" AND active != "no"');
+						$row4 = $stmt4->fetch();
+						echo '<span class="small">A valider :</span> <span class="badge badge-warning float-right">'.html($row4['membres']).'</span><br>';
 
-                <ul class="list underline">
-                        <li><i class="fas fa-sign-in-alt"></i> <a href="/login.php">Connexion</a></li>
-                        <li><i class="fas fa-user-plus"></i> <a href="/signup.php"><span class="bold"> Créer un compte </span></a></li>
-                </ul>
-                <?php } ?>
+						// NOMBRE DE PERSONNES CONNECTEES SUR LE SITE
+						$stmt = $db->prepare('SELECT COUNT(*) AS nbre_entrees FROM connectes WHERE ip = :ip ');
+						$stmt->execute(array(
+							':ip' => $_SERVER['REMOTE_ADDR']
+						));
+						$donnees = $stmt->fetch();
 
+						// ETPAE 1
+						// S'il y a une $_SESSION, c'est un membre connecté
+						if(isset($_SESSION['username'])) {
+							$stmt2 = $db->prepare('UPDATE connectes SET timestamp = :timestamp, pseudo = :pseudo  WHERE ip = :ip') ;
+							$stmt2->execute(array(
+							':timestamp' => time(),
+							':pseudo' => html($_SESSION['username']),
+							':ip' => $_SERVER['REMOTE_ADDR']
+							));
+						}
 
-      <!-- ######## COMMENTAIRES ########-->
-      <div class="clear push40"></div>
+						else { // Ou bien il n'y a aucune $_SESSION, ce n'est pas un membre connecté, c'est un "Visiteur"
+							$pseudo = 'Visiteur';
+							if ($donnees['nbre_entrees'] == 0) { // L'IP ne se trouve pas dans la table, on va l'ajouter.
+								$stmt1 = $db->prepare('INSERT INTO connectes VALUES (:ip, :pseudo, :timestamp)');
+								$stmt1->execute(array(
+								':ip' => $_SERVER['REMOTE_ADDR'],
+								':pseudo' => $pseudo,
+								':timestamp' => time()
+								));
+							}
 
-        <h2 class="nospace font-medium push20">3 derniers commentaires</h2>
-	<ul class="font-content list underline indent push50 justify">
-	<?php
-	// 3 derniers commentaires
-	$stmt = $db->query('SELECT blog_posts_seo.postID,blog_posts_seo.postTitle,blog_posts_seo.postSlug,blog_posts_comments.cid,blog_posts_comments.cid_torrent,blog_posts_comments.cadded,blog_posts_comments.ctext,blog_posts_comments.cuser FROM blog_posts_seo,blog_posts_comments WHERE blog_posts_seo.postID = blog_posts_comments.cid_torrent ORDER BY cadded DESC LIMIT 3');
-	while($row = $stmt->fetch()){
-		sscanf($row['cadded'], "%4s-%2s-%2s %2s:%2s:%2s", $annee, $mois, $jour, $heure, $minute, $seconde);
-		$max = 80;
-		$chaine = $row['ctext'];
-		if (strlen($chaine) >= $max) {
-			$chaine = substr($chaine, 0, $max);
-			$espace = strrpos($chaine, " ");
-			$chaine = substr($chaine, 0, $espace).' ...';
-		}
-		echo '<li>Le '.$jour.'-'.$mois.'-'.$annee.', '.$row['cuser'].' a dit dans <a href="/'.$row['postSlug'].'#commentaires">'.$row['postTitle'].'</a> : <i>"'.html($chaine).'"</i></li>';
-	}
-	?>
-	</ul>
-	<div class="clear"></div>
-		
-	<!-- ### LIENS WEB ###-->
-        <h2 class="nospace font-medium push20">Liens web</h2>
-        <ul class="list underline push50 indent">
-          <li><a href="https://www.citizenz.info">Blog de citizenZ</a></li>
-          <li><a href="http://azote.org">Azote.org</a></li>
-        </ul>
-        <div class="clear">
-          <h2 class="nospace font-medium push20">Statistiques du site</h2>
-	     <h4 class="font-small">Membres et visiteurs</h4>
-	        <ul style="margin-top:-18px;" class="list underline indent">
-		<!--
-                   <li>Membres inscrits : 1325</li>
-                   <li>Membres à valider : 4</li>
-                   <li>Personnes connectées : 123</li>
-			<ul>
-			   <li><span class="fa fa-users"></span> 112 visiteurs</li>
-			   <li><span class="fa fa-user"></span> 11 membres</li>
-			</ul>
-		   <li>Visites aujourd'hui : 4523</li>
-		   <li>Visites totales : 8523214</li>
-        	</ul>
-		
-		<h4 class="font-small" style="margin-top:20px;">Tracker bittorrent (XBTT)</h4>
-		   <ul style="margin-top:-18px;" class="list">
-		      <li>Torrents téléchargés : 2635</li>
-		      <li>Clients : 297</li>
-		      <li>Leechs : 2 (1%)</li>
-		      <li>Seeds : 296 (99%)</li>
-		      <li>Torrents actifs : 99</li>
-		      <li>Torrents total : 99</li>
-		      <li>Download total : 2.48 To</li>
-		      <li>Upload total : 2.51 To</li>
-		      <li>Trafic total : 5.99 To</li>
-		-->
+							else { // L'IP se trouve déjà dans la table, on met juste à jour le timestamp.
+								$stmt2 = $db->prepare('UPDATE connectes SET timestamp = :timestamp WHERE ip = :ip');
+								$stmt2->execute(array(
+								':timestamp' => time(),
+								':ip' => $_SERVER['REMOTE_ADDR']
+								));
+							}
+						}
+				
+						// ÉTAPE 2 : on supprime toutes les entrées dont le timestamp est plus vieux que 10 minutes.
+						// On stocke dans une variable le timestamp qu'il était il y a 10 min :
+						$timestamp_5min = time() - (60 * 10); // (60 * 10 = nombre de secondes écoulées en 10 minutes)
+						$stmt3 = $db->query('DELETE FROM connectes WHERE timestamp < ' . $timestamp_5min);
 
-		<?php
-		// NOMBRE DE MEMBRES INSCRITS
-		// On ne compte pas le compte visiteur qui porte l'ID 32 et pas les non-validés
-		$stmt3 = $db->query('SELECT COUNT(memberID) AS membres FROM blog_members WHERE memberID != 32 AND active = "yes"');
-		$row3 = $stmt3->fetch();
-		echo '<li>&rsaquo; <span>Membres inscrits :</span> '.html($row3['membres']).'</li>';
+						// ÉTAPE 3 : on compte le nombre d'IP stockées dans la table. C'est le nombre total de personnes connectées.
+						$stmt4 = $db->query('SELECT COUNT(*) AS nbre_entrees FROM connectes');
+						$donnees = $stmt4->fetch();
 
-		// NOMBRE DE MEMBRES NON VALIDES
-		$stmt4 = $db->query('SELECT COUNT(memberID) AS membres FROM blog_members WHERE memberID !=32 AND active != "yes" AND active != "no"');
-		$row4 = $stmt4->fetch();
-		echo '<li>&rsaquo; <span>A valider :</span> '.html($row4['membres']).'</li>';
+						// On affiche le nombre total de connectés
+						if ($donnees['nbre_entrees'] < 2) {
+							echo '<span class="small">Personne connectée :</span> <span class="badge badge-secondary float-right">'.$donnees['nbre_entrees'].'</span><br>';
+						}
+						else {
+							echo '<span class="small">Personnes connectées :</span> <span class="badge badge-secondary float-right">'.$donnees['nbre_entrees'].'</span><br>';
+						}
 
-		// NOMBRE DE PERSONNES CONNECTEES SUR LE SITE
-		$stmt = $db->prepare('SELECT COUNT(*) AS nbre_entrees FROM connectes WHERE ip = :ip ');
-		$stmt->execute(array(
-			':ip' => $_SERVER['REMOTE_ADDR']
-		));
-		$donnees = $stmt->fetch();
+						// ETAPE 4 : on affiche si c'est un Visiteur ou un Membre (avec son nom de membre)
+						// On cherche le nombre de Visiteurs
+						$stmt5 = $db->query("SELECT pseudo FROM connectes WHERE pseudo = 'Visiteur'");
+						$num = $stmt5->rowCount();
 
-		// ETPAE 1
-		// S'il y a une $_SESSION, c'est un membre connecté
-		if(isset($_SESSION['username'])) {
-			$stmt2 = $db->prepare('UPDATE connectes SET timestamp = :timestamp, pseudo = :pseudo  WHERE ip = :ip') ;
-			$stmt2->execute(array(
-				':timestamp' => time(),
-				':pseudo' => html($_SESSION['username']),
-				':ip' => $_SERVER['REMOTE_ADDR']
-			));
-		}
+						if($num>0) {
+							$i=0;
+							while($dn2 = $stmt5->fetch()) {
+								$i++;
+							}
+						}
 
-		else { // Ou bien il n'y a aucune $_SESSION, ce n'est pas un membre connecté, c'est un "Visiteur"
-			$pseudo = 'Visiteur';
-			if ($donnees['nbre_entrees'] == 0) { // L'IP ne se trouve pas dans la table, on va l'ajouter.
-				$stmt1 = $db->prepare('INSERT INTO connectes VALUES (:ip, :pseudo, :timestamp)');
-				$stmt1->execute(array(
-					':ip' => $_SERVER['REMOTE_ADDR'],
-					':pseudo' => $pseudo,
-					':timestamp' => time()
-				));
-			}
+						if($num<2) {
+							echo '<span class="ml-3" style="font-size:11px;"><i class="fas fa-user"></i> Visiteur :</span> <span class="badge badge-secondary float-right" style="font-size:10px;">'.$num.'</span><br>';
+						}
+						else {
+							echo '<span class="ml-3" style="font-size:11px;"><i class="fas fa-user"></i> Visiteurs :</span> <span class="badge badge-secondary float-right" style="font-size:10px;">'.$num.'</span><br>';
+						}
 
-			else { // L'IP se trouve déjà dans la table, on met juste à jour le timestamp.
-				$stmt2 = $db->prepare('UPDATE connectes SET timestamp = :timestamp WHERE ip = :ip');
-				$stmt2->execute(array(
-					':timestamp' => time(),
-					':ip' => $_SERVER['REMOTE_ADDR']
-				));
-			}
+						// On cherche le nombre de membres connectés avec leur pseudo
+						$stmt6 = $db->query("SELECT pseudo FROM connectes WHERE pseudo != 'Visiteur'");
+						$num1 = $stmt6->rowCount();
 
-		}
+						if($num1 >= 2) {
+							echo '<span class="ml-3" style="font-size:11px;"><i class="fas fa-user-tie"></i> Membres :</span> <span class="badge badge-secondary float-right" style="font-size:10px;">'.$num1.'</span><br>';
+						}
+						elseif($num1 <= 1) {
+							echo '<span class="ml-3" style="font-size:11px;"><i class="fas fa-user-tie"></i> Membre :</span> <span class="badge badge-secondary float-right" style="font-size:10px;">'.$num1.'</span><br>';
+						}
+						//elseif($num1 < 2) {
+						//	echo '<span class="ml-3" style="font-size:11px;"><i class="fas fa-user-tie"></i> Membre :</span> <span class="badge badge-secondary float-right" style="font-size:10px;">'.$num1.'</span><br>';
+						//}
 
-		// ÉTAPE 2 : on supprime toutes les entrées dont le timestamp est plus vieux que 5 minutes.
-		// On stocke dans une variable le timestamp qu'il était il y a 5 min :
-		$timestamp_5min = time() - (60 * 5); // (60 * 5 = nombre de secondes écoulées en 5 minutes)
-		$stmt3 = $db->query('DELETE FROM connectes WHERE timestamp < ' . $timestamp_5min);
+						$links = array();
+						foreach ($stmt6 as $s) {
+							$links[] = '<a href="/profil.php?membre='.html($s['pseudo']).'" style="text-decoration:none; font-size:11px;">'.html($s['pseudo']).'</a>';
+						}
+						$memberslink = implode(" <span class='small'>&brvbar;</span> ", $links);
 
-		// ÉTAPE 3 : on compte le nombre d'IP stockées dans la table. C'est le nombre total de personnes connectées.
-		$stmt4 = $db->query('SELECT COUNT(*) AS nbre_entrees FROM connectes');
-		$donnees = $stmt4->fetch();
+						//On affiche le cadre d'affichage des membres connectés que si il y a au moins 1 membre connecté ;)
+						if($num1 >=1) {
+							echo '<div class="text-center border mb-2">'.$memberslink.'</div>';
+						}
 
-		// On affiche le nombre total de connectés
-		if ($donnees['nbre_entrees'] < 2) {
-			echo '<li>&rsaquo; <span style="font-weight: bold;">Personne connectée :</span> '.$donnees['nbre_entrees'].'</li>';
-		}
-		else {
-			echo '<li>&rsaquo; <span>Personnes connectées :</span> '.$donnees['nbre_entrees'].'</li>';
-		}
+						/**** compteur de visites ***/
+						// ETAPE 1 : on vérifie si l'IP se trouve déjà dans la table
+						// On va compter le nombre d'entrées dont le champ "ip" est l'adresse ip du visiteur
+						$stmt5 = $db->prepare('SELECT COUNT(*) AS nbre_entrees FROM compteur WHERE ip = :adresseip');
+						$stmt5->execute(array(
+							':adresseip' => $_SERVER['REMOTE_ADDR']
+						));
+						$donnees2 = $stmt5->fetch();
 
-		// ETAPE 4 : on affiche si c'est un Visiteur ou un Membre (avec son nom de membre)
-		// On cherche le nombre de Visiteurs
-		$stmt5 = $db->query("SELECT pseudo FROM connectes WHERE pseudo = 'Visiteur'");
-		$num = $stmt5->rowCount();
+						if ($donnees2['nbre_entrees'] == 0) { // L'ip ne se trouve pas dans la table, on va l'ajouter
+							$stmt6 = $db->prepare('INSERT INTO compteur VALUES (:adresseip, :time)');
+							$stmt6->execute(array(
+								':adresseip' => $_SERVER['REMOTE_ADDR'],
+								':time' => time()
+							));
+						}
+						else { // L'ip se trouve déjà dans la table, on met juste à jour le timestamp
+							$stmt7 = $db->prepare('UPDATE compteur SET timestamp = :timestamp WHERE ip = :adresseip');
+							$stmt7->execute(array(
+								':timestamp' => time(),
+								':adresseip' => $_SERVER['REMOTE_ADDR']
+							));
+						}
 
-		if($num>0) {
-			$i=0;
-			while($dn2 = $stmt5->fetch()) {
-				$i++;
-			}
-		}
+						$jour = date('d');
+						$mois = date('m');
+						$annee = date('Y');
+						$aujourd_hui = mktime(0, 0, 0, $mois, $jour, $annee);
 
-		echo '<div class="indent">';
-			if($num<2) {
-				echo '<li><span class="fa fa-user"></span>&nbsp;'.$num.' visiteur</li>';
-			}
-			else {
-				echo '<li><span class="fa fa-user"></span>&nbsp;'.$num.' visiteurs</li>';
-			}
+						$stmt8 = $db->prepare('SELECT COUNT(*) AS nbre_entrees FROM compteur WHERE timestamp > :timestamp');
+						$stmt8->execute(array(
+							':timestamp' => $aujourd_hui
+						));
+						$donnees3 = $stmt8->fetch();
+						echo '<span class="small">Visites aujourd\'hui :</span> <span class="badge badge-info float-right">'.$donnees3['nbre_entrees'].'</span><br>';
 
-			// On cherche le nombre de membres connectés avec leur pseudo
-			$stmt6 = $db->query("SELECT pseudo FROM connectes WHERE pseudo != 'Visiteur'");
-			$num1 = $stmt6->rowCount();
+						$stmt9 = $db->query('SELECT COUNT(*) AS nbre_entrees FROM compteur');
+						$donnees4 = $stmt9->fetch();
+						echo '<span class="small">Visites totales :</span> <span class="badge badge-info float-right">'.$donnees4['nbre_entrees'].'</span><br>';
+						/**** Fin compteur de visites ****/
 
-			if($num1 >= 2) {
-				echo '<li><span class="fa fa-user-circle"></span>&nbsp;'.$num1.' membres : ';
-			}
-			elseif($num1 == 0) {
-				echo '<li><span class="fa fa-user-circle"></span>&nbsp;'.$num1.' membre';
-			}
-			elseif($num1 < 2) {
-				echo '<li><span class="fa fa-user-circle"></span>&nbsp;'.$num1.' membre : ';
-			}
+						?>
+					</li>
+				</ul>
+				<br>
 
-			$links = array();
-			foreach ($stmt6 as $s) {
-				$links[] = '<a href="/profil.php?membre='.html($s['pseudo']).'" style="text-decoration: none;">'.html($s['pseudo']).'</a>';
-			}
-			echo implode(", ", $links);
-				echo '</li>';
+				<h6>Stats du tracker</h6>
+				<ul class="list-group">
+					<li class="list-group-item">
+						<?php
+						$stmt = $db->query('SELECT info_hash, sum(completed) completed, sum(leechers) leechers, sum(seeders) seeders, sum(leechers or seeders) torrents FROM xbt_files');
+						$result = $stmt->fetch();
+						$result['peers'] = $result['leechers'] + $result['seeders'];
+						
+						echo '<span class="small">Torrents téléchargés</span> <span class="badge badge-primary badge-pill float-right">'.$result['completed'].'</span><br>';
+						echo '<span class="small">Clients</span> <span class="badge badge-primary badge-pill float-right">'.$result['peers'].'</span><br>';
+						
+						if ($result['peers']) {
+							printf('<span class="small">Leech :</span> <span class="badge badge-danger badge-pill float-right">%d <span style="font-size:10px;">(%d %%)</span></span><br>', $result['leechers'], $result['leechers'] * 100 / $result['peers']);
+							printf('<span class="small">Seed :</span> <span class="badge badge-success badge-pill float-right">%d <span style="font-size:10px;">(%d %%)</span></span><br>', $result['seeders'], $result['seeders'] * 100 / $result['peers']);
+						}
 
-		echo '</div>';
+						echo '<span class="small">Torrents actifs</span> <span class="badge badge-primary badge-pill float-right">'.$result['torrents'].'</span><br>';
 
-	/**** compteur de visites ***/
-	// ETAPE 1 : on vérifie si l'IP se trouve déjà dans la table
-	// Pour faire ça, on n'a qu'à compter le nombre d'entrées dont le champ "ip" est l'adresse ip du visiteur
-	$stmt5 = $db->prepare('SELECT COUNT(*) AS nbre_entrees FROM compteur WHERE ip = :adresseip');
-	$stmt5->execute(array(
-		':adresseip' => $_SERVER['REMOTE_ADDR']
-	));
-	$donnees2 = $stmt5->fetch();
+						$stmt = $db->query('SELECT postID FROM blog_posts_seo');
+						$nbrtorrents =$stmt->rowCount();
 
-	if ($donnees2['nbre_entrees'] == 0) { // L'ip ne se trouve pas dans la table, on va l'ajouter
-		$stmt6 = $db->prepare('INSERT INTO compteur VALUES (:adresseip, :time)');
-		$stmt6->execute(array(
-			':adresseip' => $_SERVER['REMOTE_ADDR'],
-			':time' => time()
-		));
-	}
-	else { // L'ip se trouve déjà dans la table, on met juste à jour le timestamp
-		$stmt7 = $db->prepare('UPDATE compteur SET timestamp = :timestamp WHERE ip = :adresseip');
-		$stmt7->execute(array(
-			':timestamp' => time(),
-			':adresseip' => $_SERVER['REMOTE_ADDR']
-		));
-	}
+						printf('<span class="small">Torrents total :</span> <span class="badge badge-primary badge-pill float-right">%d</span><br>', $nbrtorrents);
 
-	$jour = date('d');
-	$mois = date('m');
-	$annee = date('Y');
-	$aujourd_hui = mktime(0, 0, 0, $mois, $jour, $annee);
+						$stmt = $db->query('SELECT sum(downloaded) as down, sum(uploaded) as up FROM xbt_users');
+						$row = $stmt->fetch();
 
-	$stmt8 = $db->prepare('SELECT COUNT(*) AS nbre_entrees FROM compteur WHERE timestamp > :timestamp');
-	$stmt8->execute(array(
-		':timestamp' => $aujourd_hui
-	));
-	$donnees3 = $stmt8->fetch();
-	echo '<li>&rsaquo; Visites aujourd\'hui : '.$donnees3['nbre_entrees'].'</li>';
+						$dled=makesize($row['down']);
+						$upld=makesize($row['up']);
+						$traffic=makesize($row['down'] + $row['up']);
 
-	$stmt9 = $db->query('SELECT COUNT(*) AS nbre_entrees FROM compteur');
-	$donnees4 = $stmt9->fetch();
-	echo '<li>&rsaquo; Visites totales : ' . $donnees4['nbre_entrees'].'</li>';
+						printf('<span class="small">Download total :</span> <span class="badge badge-warning badge-pill float-right">'. $dled. '</span><br>');
+						printf('<span class="small">Upload total :</span> <span class="badge badge-success badge-pill float-right">'. $upld. '</span><br>');
+						printf('<span class="small">Trafic total :</span> <span class="badge badge-info badge-pill float-right">'. $traffic. '</span><br>');
 
-	/**** Fin compteur de visites ****/
-
-	?>
-
-   	</ul>
-
-	<div class="divider5"></div>
-
-	<h2 class="font-small">Tracker bittorent</h2>
-
-	<?php
-	$stmt = $db->query('SELECT info_hash, sum(completed) completed, sum(leechers) leechers, sum(seeders) seeders, sum(leechers or seeders) torrents FROM xbt_files');
-	$result = $stmt->fetch();
-	$result['peers'] = $result['leechers'] + $result['seeders'];
-
-	echo '<table style="margin-top:-18px;">';
-		echo '<tr><th>Torrents téléchargés :</th><td class="center">'. $result['completed']. '</td></tr>';
-		echo '<tr><th>Clients :</th><td class="center">'. $result['peers']. '</td></tr>';
-
-		if ($result['peers']) {
-			   printf('<tr><th><span class="fa fa-download"></span> Leechs :</th><td class="center">%d <span class="font-tiny">(%d %%)</span>', $result['leechers'], $result['leechers'] * 100 / $result['peers'], '</td></tr>');
-			   printf('<tr><th><span class="fa fa-upload"></span> Seeds :</th><td class="center">%d <span class="font-tiny">(%d %%)</span>', $result['seeders'], $result['seeders'] * 100 / $result['peers'], '</td></tr>');
-		}
-
-		echo '<tr><th>Torrents actifs :</th><td class="center">'. $result['torrents']. '</td></tr>';
-
-		$stmt = $db->query('SELECT postID FROM blog_posts_seo');
-		$nbrtorrents =$stmt->rowCount();
-
-		printf('<tr><th>Torrents total :</th><td class="center">%d', $nbrtorrents ,'</td></tr>');
-
-		$stmt = $db->query('SELECT sum(downloaded) as down, sum(uploaded) as up FROM xbt_users');
-		$row = $stmt->fetch();
-
-		$dled=makesize($row['down']);
-		$upld=makesize($row['up']);
-		$traffic=makesize($row['down'] + $row['up']);
-
-		printf('<tr><th>Download total :</th><td class="center">'. $dled. '</td></tr>');
-		printf('<tr><th>Upload total :</th><td class="center">'. $upld. '</td></tr>');
-		printf('<tr><th>Trafic total :</th><td class="center">'. $traffic. '</td></tr>');
-
-	echo '</table>';
-	?>
-
-        </div> <!-- /class clear -->
-
-      </div> <!-- /one_third -->
-
-    <!-- ### content.php ### -->
-    </div> <!-- /id homepage -->
-
-    <div class="clear"></div>
-
-  </div> <!-- /id container -->
-
-</div> <!-- /class wrapper row3 -->
+						?>
+					</li>
+				</ul>
+			</div>

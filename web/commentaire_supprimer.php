@@ -28,7 +28,7 @@ if ($_SESSION['username'] == $cuser) {
 	$req->execute(array(':cid_torrent' => $cid_torrent));
 	$slug = $req->fetch();
 
-	header('Location: /' . $slug['postSlug'] . '&action=commsupprime#commsupprime');
+	header('Location: /' . $slug['postSlug'] . '&action=commsupprime');
 	exit();
 }
 ?>

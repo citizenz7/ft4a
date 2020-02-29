@@ -3,34 +3,44 @@
 ob_start();
 session_start();
 
+//-----------------------------------------------------
 //SQL
+//-----------------------------------------------------
 include_once 'sql.php';
 
+//-----------------------------------------------------
 //Paramètres du site
-define('SITENAME','example');
-define('SITENAMELONG','example.com');
-define('WEBPATH','/var/www/example.com/web/'); //Chemin complet pour les fichiers du site
-define('SITESLOGAN','xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-define('SITEDESCRIPTION','xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-define('SITEKEYWORDS','bittorrent,torrent,partage,échange,peer,p2p,licence,license,medias,libre,free,opensource,gnu,téléchargement,download,upload,xbt,tracker,php,mysql,linux,bsd,os,système,system,exploitation,debian,arch,fedora,ubuntu,manjaro,mint,film,movie,picture,video,mp3,musique,music,mkv,avi,mpeg,gpl,creativecommons,cc,mit,apache,cecill,artlibre');
-define('SITEURL','http://www.example.com');
-define('SITEURLHTTPS','https://www.example.com');
+//-----------------------------------------------------
+define('SITENAME','ft4a');
+define('SITENAMELONG','ft4a.fr');
+define('WEBPATH','/var/www/'.SITENAMELONG.'/web/'); //Chemin complet pour les fichiers du site
+define('SITESLOGAN','Free Torrents For All');
+define('SITEDESCRIPTION','Tracker Bittorrent exclusivement réservé aux media sous licence libre ou licence de libre diffusion');
+define('SITEKEYWORDS','bittorrent,torrent,'.SITENAME.'partage,échange,peer,p2p,licence,license,medias,libre,free,opensource,gnu,téléchargement,download,upload,xbt,tracker,php,mysql,linux,bsd,os,système,system,exploitation,debian,arch,fedora,ubuntu,manjaro,mint,film,movie,picture,video,mp3,musique,music,mkv,avi,mpeg,gpl,creativecommons,cc,mit,apache,cecill,artlibre');
+define('SITEURL','http://www.'.SITENAMELONG);
+define('SITEURLHTTPS','https://www.'.SITENAMELONG);
 
+//-----------------------------------------------------
 //MAIL
+//-----------------------------------------------------
 define('SITEMAIL','contact@example.com');
-define('SITEMAILPASSWORD','xxxxxxxxxxxxxxxxxxxxxx');
+define('SITEMAILPASSWORD','xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
 define('SMTPHOST','mail.example.com');
 define('SMTPPORT','587');
 
-define('SITEOWNORNAME','xxxxxxxx xxxxxxxxxxxx');
-define('SITEAUTOR','xxxxxxxxxx');
-define('SITEOWNORADDRESS','xxxxxxxxxxxxxxxxxx');
+define('SITEOWNORNAME','John Doe');
+define('SITEAUTOR','jdoe777');
+define('SITEOWNORADDRESS','xxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
 define('ANNOUNCEPORT','55555'); //Port pour l'announce
-define('SITEVERSION','2.2.3');
-define('SITEDATE','120120');
-define('COPYDATE','2019');
+define('SITEVERSION','3.0.4');
+define('SITEDATE','19/02/20');
+define('COPYDATE','2020');
 define('CHARSET','UTF-8');
 define('NBTORRENTS','15'); //Nb de torrents sur la page torrents.php
+
+//-----------------------------------------------------
+//Torrent and website Settings
+//-----------------------------------------------------
 
 //URL + port pour l'announce
 $ANNOUNCEURL = SITEURL.':'.ANNOUNCEPORT.'/announce';
@@ -58,41 +68,10 @@ $HEIGHT_MAX_AVATAR = 200; //Hauteur max de l'image en pixels
 $EXTENSIONS_VALIDES = array( 'jpg' , 'png' ); //extensions d'images valides
 $REP_IMAGES_AVATARS = '/var/www/'.SITENAMELONG.'/web/images/avatars/'; //Répertoires des images avatar des membres
 
-//Edito - Page d'accueil
-$EDITO = '
-<p class="justify">
-	'.SITENAMELONG.' est un projet visant :
-	<ul>
-		<li>à créer et maintenir un front-end simple et pratique au tracker bittorrent XBTT (php + mysql)</li>
-		<li>à créer et animer une communauté de partageurs et d\'utilisateurs de médias sous licence libre ou licence de libre diffusion</li>
-	</ul>
-	Il s’inspire du projet freetorrent.fr, abandonné en juillet 2019.<br>
-</p>
-';
 
-//Deconnexion auto au bout de 15 min 
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-	if (isset($_SESSION['time'])) {
-
-		// after 15 minutes (60 sec x 15 = 900) the user gets logged out
-		$idletime=900;
-		if (time()-$_SESSION['time']>$idletime){	
-			//header('Location: '.SITEURLHTTPS.'/logout.php');
-			header('Location: '.SITEURLHTTPS.'/logout.php?action=deco');
-		}
-		else {
-			$_SESSION['time'] = time();
-		}
-	}
-	else {
-		$_SESSION['time'] = time();
-	}
-}
-
-
-// -----------------------------------------------------------------------------------
+// -----------------------------------------------------
 // CLASSES
-// -----------------------------------------------------------------------------------
+// -----------------------------------------------------
 
 //load classes as needed
 function __autoload($class) {
@@ -119,8 +98,27 @@ function __autoload($class) {
     
 }
 
-//Initialisation du user
 $user = new User($db); 
+
+
+//Deconnexion auto au bout de 10 min 
+if($user->is_logged_in()) {
+	if (isset($_SESSION['time'])) {
+
+                // after 10 minutes (60 sec x 10 = 600) the user gets logged out
+                $idletime=600;
+                if (time()-$_SESSION['time']>$idletime){
+                        header('Location: '.SITEURLHTTPS.'/logout.php?action=deco');
+                }
+                else {
+                        $_SESSION['time'] = time();
+                }
+        }
+        else {
+                $_SESSION['time'] = time();
+        }
+}
+
 
 //On inclut le fichier de fonctions et les fichiers d'encodage et de décodage des torrents 
 require_once('functions.php');

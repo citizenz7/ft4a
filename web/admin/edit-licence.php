@@ -1,125 +1,124 @@
 <?php
-require_once '../includes/config.php';
-
+include_once '../includes/config.php';
 //Si pas connecté OU si le membre n'est pas admin, pas de connexion à l'espace d'admin --> retour sur la page login
 if(!$user->is_logged_in()) {
         header('Location: /admin/login.php');
 }
 
-if(isset($_SESSION['userid'])) {
-        if($_SESSION['userid'] != 1) {
-                header('Location: ../');
-        }
+if(isset($_SESSION['userid']) && $_SESSION['userid'] != 1) {
+        header('Location: ../');
 }
 
 // titre de la page
 $pagetitle= 'Admin : Edition des licences';
-
 include_once '../includes/header.php';
-include_once '../includes/header-logo.php';
-include_once '../includes/header-nav.php';
 ?>
 
-<div class="wrapper row3">
-  <div id="container">
-    <!-- ### -->
-    <div id="homepage" class="clear">
-      <div class="two_third first">
+<body id="top">
 
-	<?php include_once('menu.php'); ?>
+<div class="container">
 
-	<div class="first">
-	<!-- ### -->
+        <header>
 
-	<p><a href="/admin/licences.php">Licences Index</a></p>
+                <!-- titre -->
+                <?php include_once '../includes/header-title.php'; ?>
 
-        <h2>Edition de la licence</h2>
-		
-	<?php
-        //if form has been submitted process it
-        if(isset($_POST['submit'])){
+                <!-- navbar -->
+                <?php include_once '../includes/navbar.php'; ?>
 
-                $_POST = array_map( 'stripslashes', $_POST );
+        </header>
 
-                //collect form data
-                extract($_POST);
+        <div class="container p-3 my-3 border">
+                <div class="row">
+                        <div class="col-sm-9">
 
-                //very basic validation
-                if($licenceID ==''){
-                        $error[] = 'Ce post possède un ID invalide !.';
-                }
+				<?php include_once('menu.php'); ?>
 
-                if($licenceTitle ==''){
-                        $error[] = 'Veuillez entrer un titre.';
-                }
+				<p><a href="/admin/licences.php">Licences Index</a></p>
 
-                if(!isset($error)){
+        			<h4>Edition de la licence</h4>
+				<?php
+        			//if form has been submitted process it
+        			if(isset($_POST['submit'])){
+			                $_POST = array_map( 'stripslashes', $_POST );
+			                //collect form data
+                			extract($_POST);
+			                //very basic validation
+                			if($licenceID ==''){
+                        			$error[] = 'Ce post possède un ID invalide !.';
+                			}
+			                if($licenceTitle ==''){
+                        			$error[] = 'Veuillez entrer un titre.';
+                			}
 
-                        try {
-
-                                $licenceSlug = slug($licenceTitle);
-
-                                //insert into database
-                                $stmt = $db->prepare('UPDATE blog_licences SET licenceTitle = :licenceTitle, licenceSlug = :licenceSlug WHERE licenceID = :licenceID') ;
-                                $stmt->execute(array(
-                                        ':licenceTitle' => $licenceTitle,
-                                        ':licenceSlug' => $licenceSlug,
-                                        ':licenceID' => $licenceID
-                                ));
-
-                                //redirect to index page
-                                header('Location: licences.php?action=updated');
-                                exit;
-
-                        } catch(PDOException $e) {
-                            echo $e->getMessage();
-                        }
-
-                }
-
-        }
+					if(!isset($error)){
+			                        try {
+			                                $licenceSlug = slug($licenceTitle);
+			                                //insert into database
+                        		        	$stmt = $db->prepare('UPDATE blog_licences SET licenceTitle = :licenceTitle, licenceSlug = :licenceSlug WHERE licenceID = :licenceID') ;
+                                			$stmt->execute(array(
+                                        			':licenceTitle' => $licenceTitle,
+                                        		':licenceSlug' => $licenceSlug,
+                                        		':licenceID' => $licenceID
+                                			));
+	                                		//redirect to index page
+        	                        		header('Location: licences.php?action=updated');
+                	                		exit;
+	                        		} 
+						catch(PDOException $e) {
+                            				echo $e->getMessage();
+                        			}
+			                }//if !isset error
+        			}//if post submit
    
+   				//check for any errors
+        			if(isset($error)){
+                			foreach($error as $error){
+                        			echo '<div class="alert alert-danger mt-3 alert-dismissible fade show" role="alert">'.$error.'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+                			}
+        			}
+		                try {
+		                        $stmt = $db->prepare('SELECT licenceID, licenceTitle FROM blog_licences WHERE licenceID = :licenceID') ;
+                		        $stmt->execute(array(':licenceID' => $_GET['id']));
+                        		$row = $stmt->fetch();
+		                } 
+				catch(PDOException $e) {
+                    			echo $e->getMessage();
+                		}
+			        ?>
 
-        //check for any errors
-        if(isset($error)){
-                foreach($error as $error){
-                        echo '<div class="alert-msg error rnd8">'.$error.'</div>';
-                }
-        }
+        			<form class="form-group py-2 px-2" action="" method="post">
+					<div class="row">
+						<div class="col">
+                					<input type='hidden' name='licenceID' value='<?php echo $row['licenceID'];?>'>
+                					<label for="licenceTitle">Titre</label>
+                					<input class="form-control" type='text' name='licenceTitle' value='<?php echo $row['licenceTitle'];?>' required>
+						</div>
+					</div>
+                			<br>
+					<p>
+						<button class="btn btn-primary mb-2 mt-3" type="submit" name="submit">Envoyer</button>
+                        			<button class="btn btn-primary ml-3 mb-2 mt-3" type="reset">Annuler</button>	
+					</p>
+        			</form>
 
-                try {
+			</div> <!-- //col-sm-9 -->
+			
+			<!-- sidebar -->
+                        <?php include_once '../includes/sidebar.php'; ?>
 
-                        $stmt = $db->prepare('SELECT licenceID, licenceTitle FROM blog_licences WHERE licenceID = :licenceID') ;
-                        $stmt->execute(array(':licenceID' => $_GET['id']));
-                        $row = $stmt->fetch();
+		</div> <!-- //row -->
 
-                } catch(PDOException $e) {
-                    echo $e->getMessage();
-                }
+		<!-- footer -->
+        	<?php include_once '../includes/footer.php'; ?>
 
-        ?>
+	</div> <!-- //container coprs -->
 
-        <form action='' method='post'>
-		<div class="form-input clear">
-                <input type='hidden' name='licenceID' value='<?php echo $row['licenceID'];?>'>
-                <label for="licenceTitle">Titre
-                	<input type='text' name='licenceTitle' value='<?php echo $row['licenceTitle'];?>'>
-		</label>
-		</div>
-                <br><p><input type='submit' class="button small orange" name='submit' value='Mettre à jour'>
-		&nbsp;
-		<input type="reset" class="button small grey" value="Annuler">
-		</p>
-        </form>
+</div> <!-- //container global -->
 
-        </div>
-		
-	<div class="divider2"></div>
-	
-      </div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-
-<?php
-include_once '../includes/sidebar.php';
-include_once '../includes/footer.php';
-?>
+</body>
+</html>

@@ -141,97 +141,6 @@ function unesc($x) {
 }
 
 
-/*
-function benc($str) //bencoding
-{
-  if (is_string($str)) { //string
-    return strlen($str) . ':' . $str;
-  }
-  
-  if (is_numeric($str)) { //integer
-    return 'i' . $str . 'e';
-  }
-  
-  if (is_array($str)) {
-    $ret_str = ''; //the return string
-    
-    $k = key($str); //we check the 1st key, if the key is 0 then is a list if not a dictionary
-    foreach($str as $var => $val) {
-      if ($k) { //is dictionary
-        $ret_str .= benc($var); //bencode the var
-      }
-      $ret_str .= benc($val); //we recursivly bencode the contents
-    }
-    
-    if ($k) { //is dictionary
-      return 'd' . $ret_str . 'e';
-    }
-    
-    return 'l' . $ret_str . 'e';
-  }
-}
-
-function bdec_file($f, $ms) 
-{
-	$fp = fopen($f, "rb");
-	if (!$fp)
-		return;
-	$e = fread($fp, $ms);
-	fclose($fp);
-	return bdec($e);
-}
-
-function bdec($str, &$_len = 0) //bdecoding
-{
-  $type = substr($str, 0, 1);
-  
-  if (is_numeric($type)) {
-    $type = 's';
-  }
-  
-  switch ($type) {
-    case 'i': //integer
-      $p = strpos($str, 'e');
-      $_len = $p + 1; //lenght of bencoded data
-      return intval(substr($str, 1, $p - 1));
-    break;
-  
-    case 's': //string
-      $p = strpos($str, ':');
-      $len = substr($str, 0, $p);
-      $_len = $len + $p + 1; //lenght of bencoded data
-      return substr($str, $p + 1, $len);
-    break;
-    
-    case 'l': //list
-      $l = 1;
-      $ret_array = array();
-      while (substr($str, $l, 1) != 'e') {
-        $ret_array[] = bdec(substr($str, $l), $len);
-        $l += $len;
-      }
-      $_len = $l + 1; //lenght of bencoded data
-      return $ret_array;
-    break;
-    
-    case 'd': //dictionary
-      $l = 1;
-      $ret_array = array();
-      while (substr($str, $l, 1) != 'e') {
-        $var = bdec(substr($str, $l), $len);
-        $l += $len;
-        
-        $ret_array[$var] = bdec(substr($str, $l), $len);
-        $l += $len;
-      }
-      $_len = $l + 1; //lenght of bencoded data
-      return $ret_array;
-    break;
-  }
-}
-*/
-
-
 function date_fr($format, $timestamp=false) {
 	if (!$timestamp) $date_en = date($format);
 	else $date_en = date($format,$timestamp);
@@ -501,9 +410,6 @@ function BBCode2Html($aTxt){
 	// 6- fais le ménage dans les balises restantes
 	return preg_replace(array('/\[(.*?)\]/is', '/\[\/(.*?)\]/is'), '', $aTxt);
 }
-
-
-
 
 function write_log($message, $db) {
 

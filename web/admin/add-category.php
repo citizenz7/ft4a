@@ -1,107 +1,112 @@
 <?php
-require_once '../includes/config.php';
-
+include_once '../includes/config.php';
 //Si pas connecté OU si le membre n'est pas admin, pas de connexion à l'espace d'admin --> retour sur la page login
 if(!$user->is_logged_in()) {
         header('Location: ../login.php');
 }
 
-if(isset($_SESSION['userid'])) {
-        if($_SESSION['userid'] != 1) {
-                header('Location: ../');
-        }
+if(isset($_SESSION['userid']) && $_SESSION['userid'] != 1) {
+        header('Location: ../');
 }
 
 // titre de la page
 $pagetitle = 'Admin : ajouter une catégorie';
-
 include_once '../includes/header.php';
-include_once '../includes/header-logo.php';
-include_once '../includes/header-nav.php';
 ?>
 
-<div class="wrapper row3">
-  <div id="container">
-    <!-- ### -->
-    <div id="homepage" class="clear">
-      <div class="two_third first">
+<body id="top">
 
-	<?php include_once('menu.php'); ?>
+<div class="container">
 
-	<div class="first">
-	<!-- ### -->
+        <header>
 
-	<p><a href="/admin/categories.php">Categories Index</a></p>
-	<h2>Ajouter une catégorie</h2>
+                <!-- titre -->
+                <?php include_once '../includes/header-title.php'; ?>
 
-	<?php
-	//if form has been submitted process it
-	if(isset($_POST['submit'])){
-		$_POST = array_map( 'stripslashes', $_POST );
+                <!-- navbar -->
+                <?php include_once '../includes/navbar.php'; ?>
 
-		//collect form data
-		extract($_POST);
+        </header>
 
-		//very basic validation
-		if($catTitle ==''){
-			$error[] = 'Veuillez entrer un nom de catégorie.';
-		}
+        <div class="container p-3 my-3 border">
+                <div class="row">
+                        <div class="col-sm-9">
+				<?php include_once('menu.php'); ?>
 
-		if(!isset($error)){
+				<p><a href="/admin/categories.php">Categories Index</a></p>
+				<h4>Ajouter une catégorie</h4>
 
-		try {
-			$catSlug = slug($catTitle);
-			//insert into database
-			$stmt = $db->prepare('INSERT INTO blog_cats (catTitle,catSlug) VALUES (:catTitle, :catSlug)') ;
-			$stmt->execute(array(
-				':catTitle' => $catTitle,
-				':catSlug' => $catSlug
-			));
+				<?php
+				//if form has been submitted process it
+				if(isset($_POST['submit'])){
+					$_POST = array_map( 'stripslashes', $_POST );
+					//collect form data
+					extract($_POST);
 
-			//redirect to index page
-			header('Location: /admin/categories.php?action=ajoute');
-			exit;
+					//very basic validation
+					if($catTitle ==''){
+						$error[] = 'Veuillez entrer un nom de catégorie.';
+					}
 
-		} 
+					if(!isset($error)){
 
-		catch(PDOException $e) {
-		    echo $e->getMessage();
-		}
+						try {
+							$catSlug = slug($catTitle);
+							//insert into database
+							$stmt = $db->prepare('INSERT INTO blog_cats (catTitle,catSlug) VALUES (:catTitle, :catSlug)') ;
+							$stmt->execute(array(
+								':catTitle' => $catTitle,
+								':catSlug' => $catSlug
+							));
+							//redirect to index page
+							header('Location: /admin/categories.php?action=ajoute');
+							exit;
+						} 
+						catch(PDOException $e) {
+		   	 				echo $e->getMessage();
+						}
+					}
+				}//if isset submit
 
-		}
-	}
+				//check for any errors
+				if(isset($error)){
+					foreach($error as $error){
+						echo '<div class="alert alert-danger mt-3 alert-dismissible fade show" role="alert">'.$error.'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+					}
+				}
+				?>
 
-	//check for any errors
-	if(isset($error)){
-		foreach($error as $error){
-			echo '<div class="alert-msg error rnd8">'.$error.'</div>';
-		}
-	}
-	?>
+				<form class="form-group" action='' method='post'>
+					<div class="row">
+						<div class="col">
+							<label for="catTitle">Titre</label>
+							<input class="form-control" type='text' name='catTitle' value='<?php if(isset($error)){ echo html($_POST['catTitle']); } ?>' required>
+						</div>
+					</div>
 
-<form action='' method='post'>
-	<div class="form-input clear">
-	<label for="catTitle">Titre</label>
-		<input type='text' name='catTitle' value='<?php if(isset($error)){ echo html($_POST['catTitle']); } ?>'>
-	</label>
-	</div>
+					<p class="text-right">
+						<button class="btn btn-primary mb-2 mt-3" name="submit" type="submit">Envoyer</button>
+                    				<button class="btn btn-primary ml-3 mb-2 mt-3" type="reset">Annuler</button>
+					</p>
+				</form>
 
-	<br><p class="right">
-	<input type='submit' name='submit' class="button small orange" value='Ajouter la catégorie'>
-	&nbsp;
-	<input type="reset" class="button small grey" value="Annuler">
-	</p>
-</form>
+			</div> <!-- //col-sm-9 -->
+			
+			<!-- sidebar -->
+                        <?php include_once '../includes/sidebar.php'; ?>
 
+		</div> <!-- //row -->
 
-        </div>
-		
-	<div class="divider2"></div>
-	
-      </div>
+		<!-- footer -->
+        	<?php include_once '../includes/footer.php'; ?>
 
+	</div> <!-- //container coprs -->
 
-<?php
-include_once '../includes/sidebar.php';
-include_once '../includes/footer.php';
-?>
+</div> <!-- //container global -->
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>

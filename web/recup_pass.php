@@ -9,8 +9,10 @@ require (WEBPATH.'classes/vendor/phpmailer/phpmailer/src/Exception.php');
 require (WEBPATH.'classes/vendor/phpmailer/phpmailer/src/PHPMailer.php');
 require (WEBPATH.'classes/vendor/phpmailer/phpmailer/src/SMTP.php');
 
+$pagetitle = 'Récupération de votre mot de passe';
+
 // Une fois le formulaire envoyé
-if(isset($_POST["recuperationpass"]) && $_POST['recuperationpass']) {
+if(isset($_POST['submit'])) {
 
 	if(!empty($_POST['email'])) {
 		if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -52,12 +54,6 @@ if(isset($_POST["recuperationpass"]) && $_POST['recuperationpass']) {
 		$row2 = $retour->fetch();
 		$new_password = fct_passwd(); //création d'un nouveau mot de passe
 		$hashedpassword = $user->password_hash($new_password, PASSWORD_BCRYPT); // cryptage du password
-
-		/*
-		$headers  = 'MIME-Version: 1.0' . "\r\n";
-		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-		$headers .= 'From: '.SITENAMELONG.' <'.SITEMAIL.'>'."\r\n";
-		*/
 
 		$subject = 'Votre nouveau mot de passe sur '.SITENAMELONG;
 
@@ -107,94 +103,95 @@ if(isset($_POST["recuperationpass"]) && $_POST['recuperationpass']) {
                 	header("Location: /recup_pass.php?action=ok");
 		}
 
-		/*
-		if(!mail($row1['email'], $objet, $message, $headers)) {
-			$error[] = "Problème lors de l'envoi du mail.";
-		}
-
-		else {
-			//mise à jour de la base de données de l'utilisateur
-			$stmt = $db->prepare('UPDATE blog_members SET password = :password WHERE email = :email') ;
-        		$stmt->execute(array(
-            			':password' => $hashedpassword,
-            			':email' => $email
-        		));
-	
-		header("Location: /recup_pass.php?action=ok");
-		}
-		 */
-
-		} // captcha validation
-
+		} //if isset $error
+	}//if decode success
+	else {
+		$error[] = 'Erreur anti-spam';
 	}
 }
-	
-$pagetitle = 'Demande de nouveau mot de passe';
 
 include_once 'includes/header.php';
-include_once 'includes/header-logo.php';
-include_once 'includes/header-nav.php';
 ?>
 
-<div class="wrapper row3">
-  <div id="container">
-    <!-- ### -->
-    <div id="homepage" class="clear">
-      <div class="two_third first">
+<body id="top">
 
-	<div class="first">
+<div class="container">
 
-	<?php
-	if(isset($_GET['action'])){
-		echo '<div class="alert-msg rnd8 success">Un mail contenant votre nouveau mot de passe vous a été envoyé.<br/>Veuillez le consulter avant de vous reconnecter sur ' . SITENAMELONG . ' ! <a class="close" href="#">X</a></div><br>';
-}
-	?>
+        <header>
 
-	<h2>Vous avez oublié votre mot de passe ?</h2>
+                <!-- titre -->
+                <?php include_once 'includes/header-title.php'; ?>
 
-	   <div class="alert-msg rnd8 warning justify">
-        	Vous allez faire une demande de nouveau mot de passe.<br>
-                Ce nouveau mot de passe vous sera envoyé par e-mail.<br>
-                Une fois connecté avec vos identifiants, vous pourrez éventuellement redéfinir un mot de passe à partir de votre page profil.<br>
-                Veuillez donc entrer ci-dessous l'adresse e-mail associée à votre compte :
-	   </div>
+                <!-- navbar -->
+                <?php include_once 'includes/navbar.php'; ?>
 
-	<div>
-	   <form class="rnd5" action='' method='post'>
-	      <div class="form-input clear four_fifth">
-	        <label for="email">Entrez votre adresse e-mail : 
-		    <input type="text" style="width:450px;" name="email">
-	        </label>
-		<br>
-		<label for="verif_box">Anti-spam : <br>
-			<div class="g-recaptcha" data-sitekey="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"></div>
-		</label>
-     	      </div>
-	      <br><br><br><br><br><br><br><br><br>
-		<p class="right">
-	         <input type="submit" name="recuperationpass" class="button small orange" value="Envoyer">
-	         &nbsp;<input type="reset" value="Annuler" class="button small grey">
-	      </p>
-	   </form>
-	   <br>
-	</div>
+        </header>
 
-	<br><br>
-	<?php
-	if(isset($error)){
-		foreach($error as $error){
-			echo '<div class="alert-msg error rnd8 five_sixth first"><span class="fa fa-warning"></span> ERREUR : '.$error.'</div>';
-		}
-	}
-	?>
-	<!-- ### -->
-        </div>
-	
-	
-      </div>
+        <div class="container p-3 my-3 border">
+                <div class="row">
+                        <div class="col-sm-9">
+				<?php
+					if(isset($_GET['action'])){
+						echo '<div class="alert alert-success mt-3 alert-dismissible fade show" role="alert">Un mail contenant votre nouveau mot de passe vous a été envoyé.<br/>Veuillez le consulter avant de vous reconnecter sur ' . SITENAMELONG . ' ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+					}
+				?>
+
+				<h4>Vous avez oublié votre mot de passe ?</h4>
+
+	   			<div class="small alert alert-warning text-justify rounded">
+        				Vous allez faire une demande de nouveau mot de passe.<br>
+                			Ce nouveau mot de passe vous sera envoyé par e-mail.<br>
+                			Une fois connecté avec vos identifiants, vous pourrez éventuellement redéfinir un mot de passe à partir de votre page profil.<br>
+                			Veuillez donc entrer ci-dessous l'adresse e-mail associée à votre compte :
+	   			</div>
+
+				<div class="container bg-light py-2 px-2 small">
+	   				<form class="form-group" action='' method='post'>
+	        					<label for="email">Entrez votre adresse e-mail : 
+		    						<input class="form-control" type="text" style="width:450px;" name="email" required>
+	        					</label>
+							<br>
+							<label for="verif_box">Anti-spam : <br>
+								<div class="g-recaptcha" data-sitekey="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"></div>
+							</label>
+							<div class="form-group">
+								<button class="btn btn-primary btn-sm mb-2 mt-2" type="submit" name="submit">Envoyer</button>
+								<button class="btn btn-secondary btn-sm ml-3 mb-2 mt-2" type="reset">Annuler</button>
+							</div>
+	   				</form>
+				</div>
 
 
-<?php
-include_once 'includes/sidebar.php';
-include_once 'includes/footer.php';
-?>
+				
+				<?php
+				if(isset($error)){
+					if (is_array($error) || is_object($error)) {	
+						foreach($error as $error){
+							echo '<div class="alert alert-danger mt-3 alert-dismissible fade show small" role="alert">ERREUR : '.$error.'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+						}
+					}
+				}
+				?>
+
+
+
+			</div> <!-- //col-sm-9 -->
+			
+			<!-- sidebar -->
+                        <?php include_once 'includes/sidebar.php'; ?>
+
+		</div> <!-- //row -->
+
+		<!-- footer -->
+        	<?php include_once 'includes/footer.php'; ?>
+
+	</div> <!-- //container coprs -->
+
+</div> <!-- //container global -->
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>

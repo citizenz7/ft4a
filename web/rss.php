@@ -49,4 +49,3 @@ $nomsite = SITENAMELONG;
       	    	?>
       </channel>
 </rss>
-

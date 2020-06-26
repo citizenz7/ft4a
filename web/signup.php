@@ -22,15 +22,11 @@ include_once 'includes/header.php';
 
 <div class="container">
 
-        <header>
+       <!-- titre -->
+       <?php include_once 'includes/header-title.php'; ?>
 
-                <!-- titre -->
-                <?php include_once 'includes/header-title.php'; ?>
-
-                <!-- navbar -->
-                <?php include_once 'includes/navbar.php'; ?>
-
-        </header>
+       <!-- navbar -->
+       <?php include_once 'includes/navbar.php'; ?>
 
         <div class="container p-3 my-3 border">
                 <div class="row">

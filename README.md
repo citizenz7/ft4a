@@ -1,5 +1,5 @@
 # ft4a
-#### Xbtt tracker front-end in PHP + MySQL + PDO
+#### Xbtt tracker front-end in PHP + MySQL + PDO for opensource media ONLY!
 
 ### Prerequisites
 - Nginx
